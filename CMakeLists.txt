@@ -24,6 +24,7 @@ set(SRC_LIST
     src/machine.cpp
     src/synchronizer.cpp
     src/machinesSync.cpp
+    src/fileInfo.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})

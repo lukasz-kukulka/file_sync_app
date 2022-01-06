@@ -7,17 +7,19 @@ Machine::Machine( fs::path path )
     : path_( path )
     , machine_name_( path.filename() )
 {
+    path_.filename();
     setFilesPaths();
+    std::cout <<  path_.filename() << '\n';
 }
 
 void Machine::setFilesPaths()
 {
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
         if ( file.is_regular_file() ) {
-            //std::cout <<  file.path() << ":  " << getFileTime( file ) << '\n';
-            auto x = file.file_size()
+            std::cout <<  file.path() << ":  " << getFileTime( file ) << '\n';
         }
     }
+
 }
 
 std::time_t Machine::getFileTime( fs::directory_entry file ) {
