@@ -1,6 +1,5 @@
 #pragma once
 
-#include "fileInfo.hpp"
 #include <chrono>
 #include <filesystem>
 #include <string>
@@ -18,6 +17,7 @@ private:
     char* convertToLocalTime( std::time_t const& time );
     void saveMachineFilesInfo();
     void loadMachineFilesInfo();
-    std::vector< FileInfo > files_status_{};
+    std::vector< fs::path > files_status_{};
     fs::path path_{};
+    std::string machine_name_{};
 };
