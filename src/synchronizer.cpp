@@ -15,6 +15,10 @@ std::string Synchronizer::getMachinePath() const {
     return machines_path_;
 }
 
+DefaultSettingsInfo Synchronizer::getDefaultSettingsFromFile() const {
+    return default_settings_;
+}
+
 void Synchronizer::setMachinesPath() {
     auto const machine_path = main_path_ + default_setting_path_;
     machines_path_ = main_path_ + default_settings_.machineDirectory;
