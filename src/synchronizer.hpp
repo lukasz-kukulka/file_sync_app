@@ -17,15 +17,16 @@ struct DefaultSettingsInfo {
 };
 class Synchronizer {
 public:
-    Synchronizer( std::string const & main_path );
+    Synchronizer( std::string const& main_path, std::string const& default_setting_path );
 
     std::string getMachinePath() const;
-    DefaultSettingsInfo DefaultSettingsFromFile() const;
+    DefaultSettingsInfo getDefaultSettingsFromFile() const;
 private:
     void loadDefaultSettingsFromFile();
     void saveDefaultSettingsToFile();
     void setMachinesPath();
     
+    std::string default_setting_path_{};
     std::string main_path_{};
     std::string machines_path_{};
     DefaultSettingsInfo default_settings_{};

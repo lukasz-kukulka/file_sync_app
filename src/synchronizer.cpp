@@ -3,12 +3,9 @@
 #include <algorithm>
 #include <ranges>
 
-namespace {
-    const std::string kDefaultSettings = "/settings/machines_default_settings.json";
-}
-
-Synchronizer::Synchronizer( std::string const & main_path ) 
+Synchronizer::Synchronizer( std::string const& main_path, std::string const& default_setting_path ) 
     : main_path_( main_path )
+    , default_setting_path_( default_setting_path )
 {
     loadDefaultSettingsFromFile();
     setMachinesPath();
@@ -19,13 +16,13 @@ std::string Synchronizer::getMachinePath() const {
 }
 
 void Synchronizer::setMachinesPath() {
-    auto const machine_path = main_path_ + kDefaultSettings;
+    auto const machine_path = main_path_ + default_setting_path_;
     machines_path_ = main_path_ + default_settings_.machineDirectory;
 }
 
 void Synchronizer::loadDefaultSettingsFromFile()
 {
-    auto const path = main_path_ + kDefaultSettings;
+    auto const path = main_path_ + default_setting_path_;
     std::ifstream stream( path );
     auto json = json::parse( stream );
     
