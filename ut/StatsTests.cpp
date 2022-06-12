@@ -27,8 +27,7 @@ void generateTestMachine( std::string const& machine_name, int const machine_num
     for ( int i{}; i < machine_num; i++ ) {
         std::string const postfix = is_reverse_name ? machine_name + std::to_string( machine_num - i ) : machine_name + std::to_string( i + 1 );
         std::string machine_directory = machine_name + std::to_string( i + 1 );
-        //std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
-        //std::cout << "test\n\n" << std::endl;
+        std::this_thread::sleep_for( std::chrono::microseconds( 1 ) );
         fs::create_directory( kMachinePath + machine_directory );
         createTestFile( machine_directory + file_name, "test xxxx" );
     }
@@ -42,7 +41,7 @@ void deleteTestMachines() {
 
 TEST( FileInfoCompareStatsTest, IsGreater) {
     std::string file_name = "/test_file_1" ;
-    std::string machine_name = "/M_test_";
+    std::string machine_name = "/M_greater_test_";
     generateTestMachine( machine_name, 2, file_name );
     FileInfo first( fs::directory_entry{ kMachinePath + machine_name + "1" + file_name  }, file_name, machine_name );
     FileInfo second( fs::directory_entry{ kMachinePath + machine_name + "2" + file_name }, file_name, machine_name );
@@ -51,12 +50,15 @@ TEST( FileInfoCompareStatsTest, IsGreater) {
     deleteTestMachines();
 }
 
-TEST( FileInfoCompareStats, IsLess) {
-    // fs::directory_entry const dir_entry( "D:/Programing/file_sync_app/ut/MachinesTest/machine1_test/file1.txt" );
-    // FileInfo file_info( dir_entry );
-    // EXPECT_NE( 0, file_info.getFileSize() );
-    // EXPECT_NE( 0, file_info.getModTime() );
-    // EXPECT_NE( "", file_info.getPath() );
+TEST( FileInfoCompareStatsTest, IsLess) {
+    std::string file_name = "/test_file_1" ;
+    std::string machine_name = "/M_less_test_";
+    generateTestMachine( machine_name, 2, file_name );
+    FileInfo first( fs::directory_entry{ kMachinePath + machine_name + "1" + file_name  }, file_name, machine_name );
+    FileInfo second( fs::directory_entry{ kMachinePath + machine_name + "2" + file_name }, file_name, machine_name );
+    auto const check_option = SyncApp::CompareOption::Less;
+    EXPECT_EQ( check_option, SyncApp::getCompareOption( &first, &second ) );
+    deleteTestMachines();
 }
 
 TEST( FileInfoCompareStats, IsEqual) {
