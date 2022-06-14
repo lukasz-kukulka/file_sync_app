@@ -61,7 +61,7 @@ TEST( FileInfoCompareStatsTest, IsLess) {
     deleteTestMachines();
 }
 
-TEST( FileInfoCompareStats, IsEqual) {
+TEST( FileInfoCompareStatsTest, IsEqual) {
     std::string file_name = "/test_equal_1" ;
     std::string machine_name = "/M_less_test_";
     generateTestMachine( machine_name, 1, file_name );
@@ -72,10 +72,15 @@ TEST( FileInfoCompareStats, IsEqual) {
     deleteTestMachines();
 }
 
-TEST( FileInfoCompareStats, IsDifferent) {
-    // fs::directory_entry const dir_entry( "D:/Programing/file_sync_app/ut/MachinesTest/machine1_test/file1.txt" );
-    // FileInfo file_info( dir_entry );
-    // EXPECT_NE( 0, file_info.getFileSize() );
-    // EXPECT_NE( 0, file_info.getModTime() );
-    // EXPECT_NE( "", file_info.getPath() );
+TEST( FileInfoCompareStatsTest, IsDifferent) {
+    std::string first_file_name = "/test_equal_1" ;
+    std::string second_file_name = "/test_equal_2" ;
+    std::string machine_name = "/M_less_test_";
+    generateTestMachine( machine_name, 1, first_file_name );
+    generateTestMachine( machine_name, 1, second_file_name );
+    FileInfo first( fs::directory_entry{ kMachinePath + machine_name + "1" + first_file_name  }, first_file_name, machine_name );
+    FileInfo second( fs::directory_entry{ kMachinePath + machine_name + "1" + second_file_name }, second_file_name, machine_name );
+    auto const check_option = SyncApp::CompareOption::Different;
+    EXPECT_EQ( check_option, SyncApp::getCompareOption( &first, &second ) );
+    deleteTestMachines();
 }
