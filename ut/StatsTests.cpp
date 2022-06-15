@@ -50,6 +50,17 @@ TEST( FileInfoCompareStatsTest, IsGreater) {
     deleteTestMachines();
 }
 
+TEST( FileInfoCompareStatsTest, IsGreaterReverseName) {
+    std::string file_name = "/test_file_1" ;
+    std::string machine_name = "/M_greater_test_";
+    generateTestMachine( machine_name, 2, file_name, true );
+    FileInfo first( fs::directory_entry{ kMachinePath + machine_name + "1" + file_name  }, file_name, machine_name );
+    FileInfo second( fs::directory_entry{ kMachinePath + machine_name + "2" + file_name }, file_name, machine_name );
+    auto const check_option = SyncApp::CompareOption::Greater;
+    EXPECT_EQ( check_option, SyncApp::getCompareOption( &second, &first ) );
+    deleteTestMachines();
+}
+
 TEST( FileInfoCompareStatsTest, IsLess) {
     std::string file_name = "/test_file_1" ;
     std::string machine_name = "/M_less_test_";
@@ -73,8 +84,8 @@ TEST( FileInfoCompareStatsTest, IsEqual) {
 }
 
 TEST( FileInfoCompareStatsTest, IsDifferent) {
-    std::string first_file_name = "/test_equal_1" ;
-    std::string second_file_name = "/test_equal_2" ;
+    std::string first_file_name = "/test_different_1" ;
+    std::string second_file_name = "/test_different_2" ;
     std::string machine_name = "/M_less_test_";
     generateTestMachine( machine_name, 1, first_file_name );
     generateTestMachine( machine_name, 1, second_file_name );
