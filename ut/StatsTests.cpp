@@ -23,6 +23,7 @@ void createTestFile( std::string const& file_name, std::string const& file_conte
     file.close();
 }
 
+
 void generateTestMachine( std::string const& machine_name, int const machine_num, std::string const& file_name, bool const is_reverse_name = false ) {
     for ( int i{}; i < machine_num; i++ ) {
         std::string const postfix = is_reverse_name ? machine_name + std::to_string( machine_num - i ) : machine_name + std::to_string( i + 1 );
@@ -104,5 +105,33 @@ TEST( FileInfoCompareStatsTest, IsDifferent) {
     FileInfo second( fs::directory_entry{ kMachinePath + machine_name + "1" + second_file_name }, second_file_name, machine_name );
     auto const check_option = SyncApp::CompareOption::Different;
     EXPECT_EQ( check_option, SyncApp::getCompareOption( &first, &second ) );
+    deleteTestMachines();
+}
+
+TEST( FileInfoCompareStatsTemplateTest, IsFileInfoToChange ) {
+    std::string file_name = "/test_compare_1" ;
+    std::string machine_name = "/M_change_test_";
+    generateTestMachine( machine_name, 4, file_name );
+    FileInfo first( fs::directory_entry{ kMachinePath + machine_name + "1" + file_name  }, file_name, machine_name );
+    FileInfo second( fs::directory_entry{ kMachinePath + machine_name + "2" + file_name }, file_name, machine_name );
+    FileInfo third( fs::directory_entry{ kMachinePath + machine_name + "3" + file_name  }, file_name, machine_name );
+    FileInfo fourth( fs::directory_entry{ kMachinePath + machine_name + "4" + file_name }, file_name, machine_name );
+    FileInfo const test_file_info = fourth;
+    
+    auto* const result1 = SyncApp::compareFilesInfo( &first, &second, &third, &fourth );
+    auto* const result2 = SyncApp::compareFilesInfo( &fourth, &first, &second, &third );
+    auto* const result3 = SyncApp::compareFilesInfo( &first, &fourth, &second, &third );
+    auto* const result4 = SyncApp::compareFilesInfo( &first, &second, &fourth, &third );
+
+    EXPECT_EQ( test_file_info.getAbsolutePath(), result1->getAbsolutePath() );
+    EXPECT_EQ( test_file_info.getAbsolutePath(), result2->getAbsolutePath() );
+    EXPECT_EQ( test_file_info.getAbsolutePath(), result3->getAbsolutePath() );
+    EXPECT_EQ( test_file_info.getAbsolutePath(), result4->getAbsolutePath() );
+
+    EXPECT_EQ( test_file_info.getModTime(), result1->getModTime() );
+    EXPECT_EQ( test_file_info.getModTime(), result2->getModTime() );
+    EXPECT_EQ( test_file_info.getModTime(), result3->getModTime() );
+    EXPECT_EQ( test_file_info.getModTime(), result4->getModTime() );
+
     deleteTestMachines();
 }
