@@ -68,7 +68,7 @@ void MachinesSync::makeUniqueSyncFiles() {
 void MachinesSync::compareAndAddFileInfo(FileInfo& file ) {
     if ( auto exist_file = unique_machine_files_info_.find( file.getPath() ); exist_file != unique_machine_files_info_.end() ) {
         auto new_file_info = SyncApp::compareFilesInfo( &file, &exist_file->second );
-        if ( new_file_info ) {
+        if ( new_file_info && ( exist_file->second.getModTime() != new_file_info->getModTime() ) ) {
             unique_machine_files_info_.insert_or_assign( new_file_info->getPath(), *new_file_info );
         }
     } else {
