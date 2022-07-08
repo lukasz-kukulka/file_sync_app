@@ -26,6 +26,10 @@ void MachinesSync::run() {
     machinesInit();
     makeUniqueSyncFiles();
     changeFileIfIsOlder();
+    // std::cout << "____________________________________________________________" << std::endl;
+    // for ( auto const & file_info : unique_machine_files_info_ ) {
+    //     std::cout << file_info.second.getMachineName() << "_______" << file_info.second.getPath() << "    " << file_info.second.getAbsolutePath() << std::endl;
+    // }
 }
 
 void MachinesSync::prepareForMachineSync() {
@@ -84,5 +88,7 @@ void MachinesSync::changeFilesIfIsOlder() {
 }
 
 void MachinesSync::replaceSingleFile(FileInfo& old_file, FileInfo& new_file) {
-    
+    std::filesystem::path old_file_path( old_file.getAbsolutePath() );
+    std::filesystem::path new_file_path( new_file.getAbsolutePath() );
+    std::filesystem::copy_file( old_file_path, new_file_path, std::filesystem::copy_options::overwrite_existing );
 }
