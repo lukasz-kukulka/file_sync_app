@@ -82,6 +82,7 @@ void MachinesSync::changeFilesIfIsOlder() {
             if ( file.getIsFileToReplace() ) {
                 auto new_file = unique_machine_files_info_[ file.getPath() ];
                 replaceSingeFile( file, new_file );
+                file.replaceAllFileInfo( new_file );
             }
         }
     }
