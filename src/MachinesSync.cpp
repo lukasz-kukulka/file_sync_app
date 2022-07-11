@@ -6,6 +6,7 @@
 #include <iterator>
 #include <ranges>
 #include <algorithm>
+#include <set>
 
 namespace {
     const std::string kSettingsDirectory = "/settings";
@@ -78,13 +79,17 @@ void MachinesSync::compareAndAddFileInfo( FileInfo& file ) {
 
 void MachinesSync::changeFilesIfIsOlder() {
     for ( auto & machine : machines_ ) {
+        std::set< std::string > all_file_path_to_replace ( unique_machine_files_info_.size() );
+        std::ranges::copy( unique_machine_files_info_, std::inserter( all_file_path_to_replace ), [ ]( auto file ){ file.getPath() } );
         for ( auto & file : machine->getFileInfo() ) {
             if ( file.getIsFileToReplace() ) {
                 auto new_file = unique_machine_files_info_[ file.getPath() ];
                 replaceSingeFile( file, new_file );
                 file.replaceAllFileInfo( new_file );
+                all_file_path_to_replace.erase( new_file.getPath() );
             }
         }
+        
     }
 }
 
@@ -92,4 +97,8 @@ void MachinesSync::replaceSingleFile(FileInfo& old_file, FileInfo& new_file) {
     std::filesystem::path old_file_path( old_file.getAbsolutePath() );
     std::filesystem::path new_file_path( new_file.getAbsolutePath() );
     std::filesystem::copy_file( old_file_path, new_file_path, std::filesystem::copy_options::overwrite_existing );
+}
+
+void MachinesSync::addNewFilesIfDontExist() {
+    
 }
