@@ -89,7 +89,7 @@ void MachinesSync::changeFilesIfIsOlder() {
                 all_file_path_to_replace.erase( new_file.getPath() );
             }
         }
-        
+        addNewFilesIfDontExist( all_file_path_to_replace, machines_path_ + machine->getMachineName() )
     }
 }
 
@@ -99,6 +99,10 @@ void MachinesSync::replaceSingleFile(FileInfo& old_file, FileInfo& new_file) {
     std::filesystem::copy_file( old_file_path, new_file_path, std::filesystem::copy_options::overwrite_existing );
 }
 
-void MachinesSync::addNewFilesIfDontExist() {
-    
+void MachinesSync::addNewFilesIfDontExist( std::set< std::string >const& existing_file_paths, std::string const& path_to_copy ) {
+    for( auto const& path : existing_file_paths ) {
+        std::filesystem::path existing_file( path );
+        std::filesystem::path new_path( path_to_copy );
+        std::filesystem::copy_file( path_to_copy, existing_file );
+    }
 }
