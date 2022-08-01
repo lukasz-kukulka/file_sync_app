@@ -22,8 +22,9 @@ void createTestFile( std::string const& file_name, std::string const& file_conte
   file.close();
 }
 
-void generateTestMachine( int const machine_num, std::string const& file_name ) {
+void generateTestMachine( int const machine_num, std::string const& file_name, bool const is_reverse_name = false ) {
     for ( int i{}; i < machine_num; i++ ) {
+        int const postfix = is_reverse_name ? "/M_test_" + std::to_string( machine_num - i ) : "/M_test_" + std::to_string( i + 1 );
         std::string machine_directory = "/M_test_" + std::to_string( i + 1 );
         fs::create_directory( kMachinePath + machine_directory );
         createTestFile( machine_directory + file_name, "test xxxx" );
@@ -38,7 +39,6 @@ void deleteTestMachines() {
 
 TEST( FileInfoCompareStats, IsGreater) {
     generateTestMachine( 4, "/test_file_1" );
-    //std::cout << "______    TESTS  _____"<< kMachinePath + "/machine1_test/file2" << std::endl;
     FileInfo first( fs::directory_entry{ kMachinePath + "/machine1_test/file6" }, "file6", "machine1_test" );
     FileInfo second( fs::directory_entry{ kMachinePath + "/machine3_test/file6" }, "file6", "machine3_test" );
     //std::cout << "______    TESTS  _____"<< first.getAbsolutePath() << std::endl;
