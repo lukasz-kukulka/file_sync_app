@@ -30,6 +30,12 @@ void generateTestMachine( int const machine_num, std::string const& file_name ) 
     }
 }
 
+void deleteTestMachines() {
+    for (auto const& file : fs::directory_iterator{ kMachinePath } ) {
+        fs::remove_all( file );
+    }
+}
+
 TEST( FileInfoCompareStats, IsGreater) {
     generateTestMachine( 4, "/test_file_1" );
     //std::cout << "______    TESTS  _____"<< kMachinePath + "/machine1_test/file2" << std::endl;
@@ -42,6 +48,7 @@ TEST( FileInfoCompareStats, IsGreater) {
     // EXPECT_NE( 0, file_info.getFileSize() );
     // EXPECT_NE( 0, file_info.getModTime() );
     // EXPECT_NE( "", file_info.getPath() );
+    deleteTestMachines();
 }
 
 TEST( FileInfoCompareStats, IsLess) {
