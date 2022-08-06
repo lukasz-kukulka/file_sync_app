@@ -30,7 +30,6 @@ FetchContent_MakeAvailable(googletest)
 FetchContent_MakeAvailable(json)
 
 set(SRC_LIST
-  main.cpp
   src/Machine.cpp
   src/Synchronizer.cpp
   src/MachinesSync.cpp
@@ -52,7 +51,7 @@ set(TEST_LIST
   ut/StatsTests.cpp
 )
 
-add_executable(${PROJECT_NAME} ${SRC_LIST})
+add_executable(${PROJECT_NAME} ${SRC_LIST} main.cpp )
 target_link_libraries(FilesSync PRIVATE nlohmann_json::nlohmann_json)
 # target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Werror -Wpedantic -Wextra -O3)
 
