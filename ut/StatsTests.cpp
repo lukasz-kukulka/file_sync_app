@@ -3,6 +3,7 @@
 #include "../src/Stats.hpp"
 #include <fstream>
 #include <string>
+#include <thread>
 
 namespace fs = std::filesystem;
 
@@ -26,6 +27,8 @@ void generateTestMachine( std::string const& machine_name, int const machine_num
     for ( int i{}; i < machine_num; i++ ) {
         std::string const postfix = is_reverse_name ? machine_name + std::to_string( machine_num - i ) : machine_name + std::to_string( i + 1 );
         std::string machine_directory = machine_name + std::to_string( i + 1 );
+        //std::this_thread::sleep_for( std::chrono::seconds( 1 ) );
+        //std::cout << "test\n\n" << std::endl;
         fs::create_directory( kMachinePath + machine_directory );
         createTestFile( machine_directory + file_name, "test xxxx" );
     }

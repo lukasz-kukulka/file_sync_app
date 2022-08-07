@@ -33,10 +33,11 @@ FileInfo::FileInfo()
 // }
 
 void FileInfo::setFileTime( fs::directory_entry file ) {
-    mod_time_ = MainTime::getFileTime( file );
+    mod_time_ = MainTime::getFileTimeHighPrecision( file );
 }
 
 std::time_t FileInfo::getModTime() const {
+    
     return mod_time_;
 }
 
