@@ -16,6 +16,7 @@ public:
 
     void run();
 private:
+    void prepareForMachineSync();
     json getJsonData( fs::path const& path );
     void machinesInit();
     void machinesFilesInit();
@@ -29,5 +30,5 @@ private:
     std::vector< std::unique_ptr< Machine > > machines_;
     fs::path machine_setting_path_{};
     std::unique_ptr< Synchronizer > synchronizer_{};
-    std::map< std::string, std::unique_ptr< fs::directory_entry > > unique_machine_files_{};
+    std::map< std::string, std::string > unique_machine_files_info_{};
 };
