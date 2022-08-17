@@ -17,6 +17,7 @@ void Menu::runMenu() {
     while ( menu_choice != SyncApp::MenuOption::Exit ) {
         std::string choice{};
         printMenu();
+
         std::getline( std::cin, choice );
         menu_choice = switchOption( validateAndConvertInput( choice ) );
     }
@@ -69,7 +70,6 @@ SyncApp::MenuOption Menu::exitDecision() {
     char decision{};
     auto menu_decision = SyncApp::MenuOption::None;
     std::string possible_options{ "YyNn" }; 
-    //char possible_options[ 4 ] = { 'Y', 'y', 'N', 'n', }; 
     do {
         std::cin >> decision;
         if ( decision == 'Y' || decision == 'y' ) {

@@ -45,10 +45,11 @@ void MachinesSync::machinesInit() {
 void MachinesSync::makeUniqueSyncFiles() {
     for ( auto const & machine : machines_ )
     {
-        // for ( auto const & file : machine->getAllMachineFiles() )
-        // {
-            
-        // }
+        //std::cout << "Machine" << std::endl;
+        for ( auto const & file : machine->getFileInfo() )
+        {
+            //std::cout << "FILE" << std::endl;
+        }
     }
 }
 
