@@ -14,7 +14,7 @@ namespace SyncApp {
                 } else if ( lhs->getModTime() != rhs->getModTime() && lhs->getModTime() < rhs->getModTime() ) {
                     return CompareOption::Less;
                 }
-            } 
+            }
         }
         return CompareOption::None;
     }
