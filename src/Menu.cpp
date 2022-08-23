@@ -6,7 +6,7 @@
 #include <iostream>
 
 Menu::Menu() {
-    std::string main_path_ = fs::current_path();
+    std::string main_path_ = fs::current_path().parent_path();
     std::cout << main_path_ << std::endl;
     MachinesSync machineSync{ main_path_ };
     machineSync.run();
@@ -15,9 +15,10 @@ Menu::Menu() {
 void Menu::runMenu() {
     auto menu_choice = SyncApp::MenuOption::None;
     while ( menu_choice != SyncApp::MenuOption::Exit ) {
-        int choice{};
+        std::string choice{};
         printMenu();
-        std::cin >> choice;
+        std::getline( std::cin, choice );
+
         menu_choice = switchOption( choice );
     }
 }
@@ -83,4 +84,21 @@ SyncApp::MenuOption Menu::exitDecision() {
         }
     } while ( std::ranges::none_of( possible_options, [ decision ]( auto character ){ return decision == character; } ) );
     return menu_decision;
+}
+
+int Menu::validateAndConvertInput(std::string const& input) {
+    std::string player_right_choice{};
+    for ( auto const& character : input ) {
+        if ( std::isdigit( character ) ) {
+            player_right_choice.push_back( character );
+        }
+        if ( player_right_choice.size() >= 2 ) {
+            break;
+        }
+    }
+    if ( not player_right_choice.empty() ) {
+        return std::stoi( player_right_choice );
+    } else {
+        return 100;
+    }
 }

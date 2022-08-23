@@ -30,7 +30,7 @@ void Synchronizer::setMachinesPath() {
 void Synchronizer::loadDefaultSettingsFromFile()
 {
     auto const path = main_path_ == "/" ? "" + default_setting_path_ : main_path_ + default_setting_path_;
-    //std::cout << "xxxxxxxxxxxxxx" << path << std::endl;
+    // std::cout << "xxxxxxxxxxxxxx" << path << std::endl;
     // std::cout << default_setting_path_ << std::endl;
     // std::cout << machines_path_ << std::endl;
     // if ( main_path_ == "/" ) {

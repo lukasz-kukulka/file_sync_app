@@ -12,7 +12,7 @@ WORKDIR /app
 COPY . /app
 
 # run all commands
-RUN mkdir build && cd build && cmake .. && make -j
+RUN mkdir build && cd build && cmake ..
 
 # Run app
-CMD ./build/FilesSync
+CMD  cd build && make -j && ./FilesSync
