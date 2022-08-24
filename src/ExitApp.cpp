@@ -1,5 +1,7 @@
 #include "ExitApp.hpp"
 
+#include <ranges>
+
 ExitApp::ExitApp() {
     
 }
