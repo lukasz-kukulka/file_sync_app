@@ -2,6 +2,7 @@
 
 #include "MachinesSync.hpp"
 #include "ExitApp.hpp"
+#include "SettingApp.hpp"
 #include <iostream>
 
 Menu::Menu() {
@@ -29,7 +30,7 @@ SyncApp::MenuOption Menu::switchOption( int const choice ) {
             menu_choice = SyncApp::MenuOption::SyncMachines;
             break;
         case SyncApp::MenuOption::Settings :
-            
+            command_ = std::make_unique< SettingApp >();
             menu_choice = SyncApp::MenuOption::Settings;
             break;
         case SyncApp::MenuOption::Exit :
