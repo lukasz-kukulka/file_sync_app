@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Command.hpp"
+#include "Stats.hpp"
 
 #include <string>
+
 class Menu {
 public:
     Menu( );
@@ -14,4 +16,5 @@ private:
 
     std::string main_path_{};
     std::unique_ptr< Command >command_;
+    std::vector< FileInfo > file_prev_settings_;
 };
