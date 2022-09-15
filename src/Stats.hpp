@@ -2,7 +2,8 @@
 
 namespace SyncApp {
     enum class MenuOption {
-        SyncMachines = 1,
+        None,
+        SyncMachines,
         Settings,
         Exit
     };

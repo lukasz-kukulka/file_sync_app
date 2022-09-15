@@ -1,7 +1,6 @@
 #include "Menu.hpp"
 
 #include "MachinesSync.hpp"
-#include "Stats.hpp"
 
 #include <iostream>
 
@@ -13,33 +12,36 @@ Menu::Menu() {
 }
 
 void Menu::runMenu() {
-    while ( true ) {
+    auto menu_choice = SyncApp::MenuOption::None;
+    while ( menu_choice != SyncApp::MenuOption::Exit ) {
         int choice{};
         printMenu();
         std::cin >> choice;
-        try {
-            switchOption( choice );
-        } catch (const std::out_of_range& exception) {
-            std::cerr << "Exception: " << exception.what() << std::endl;
-        }
+        menu_choice = switchOption( choice );
     }
 }
 
-void Menu::switchOption( int const choice ) {
+SyncApp::MenuOption Menu::switchOption( int const choice ) {
+    auto menu_choice = SyncApp::MenuOption::None;
     switch ( static_cast< SyncApp::MenuOption > ( choice ) ) {   
         case SyncApp::MenuOption::SyncMachines :
-            /* code */
+            
+            menu_choice = SyncApp::MenuOption::SyncMachines;
             break;
         case SyncApp::MenuOption::Settings :
-            /* code */
+            
+            menu_choice = SyncApp::MenuOption::Settings;
             break;
         case SyncApp::MenuOption::Exit :
-            /* code */
+            
+            menu_choice = SyncApp::MenuOption::Exit;
             break;
         default:
-            throw std::out_of_range("Wrong menu options");
+
+            menu_choice = SyncApp::MenuOption::None;
             break;
     }
+    return menu_choice;
 }
 
 void Menu::printMenu() const {
