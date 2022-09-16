@@ -26,11 +26,10 @@ json MachinesSync::getJsonData( fs::path const& path ) {
     return json::parse( stream );
 }
 
-void MachinesSync::machinesInit() { 
+void MachinesSync::machinesInit() {
     // zrobic to na kilku watkach  
     
     fs::path const machine_settings_file_path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
-    
     auto const init_file_exist = synchronizer_->getDefaultSettingsFromFile().isDeleteSync;
     
     for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
@@ -38,7 +37,7 @@ void MachinesSync::machinesInit() {
         if ( init_file_exist ) {
             machines_.back()->loadPreviouslyFilesInfo( getJsonData( machine_settings_file_path ), dir_entry );
         }
-        std::cout << "dir_entry = " << dir_entry << std::endl;
+        //std::cout << "dir_entry = " << dir_entry << std::endl;
     }
     
     for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
@@ -79,9 +78,7 @@ void MachinesSync::changeFileIfIsOlder() {
 
     for ( auto const & file : unique_machine_files_ ) {
         for( auto const & machine : machines_ ) {
-            //if ( MainTime::getFileTime( *file.second ) < MainTime::getFileTime( machine->getAllMachineFiles() ) ) {
-                
-           // }
+           
         }
     }
 }

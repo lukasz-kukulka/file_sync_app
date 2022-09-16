@@ -1,12 +1,13 @@
 #pragma once
-
+#include <string>
 class Menu {
 public:
-    Menu();
+    Menu( );
 
     void runMenu();
 private:
-    void switchOption();
+    void switchOption( int const choice );
     void printMenu() const;
 
+    std::string main_path_{};
 };

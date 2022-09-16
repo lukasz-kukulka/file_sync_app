@@ -1,22 +1,32 @@
 #include "Menu.hpp"
+
+#include "MachinesSync.hpp"
 #include "Stats.hpp"
+
+#include <iostream>
+
 Menu::Menu() {
-    
+    std::string main_path_ = fs::current_path().parent_path();
+    std::cout << main_path_;
+    MachinesSync machineSync{ main_path_ };
+    machineSync.run();
 }
 
 void Menu::runMenu() {
-    int choice{};
-    printMenu();
-    std::cin >> choice >> '\n';
-    try {
-        switchOption( choice );
-    } catch (const std::out_of_range const& exception) {
-        std::cerr << "Exception: " << exception.what() << std::endl;
+    while ( true ) {
+        int choice{};
+        printMenu();
+        std::cin >> choice;
+        try {
+            switchOption( choice );
+        } catch (const std::out_of_range& exception) {
+            std::cerr << "Exception: " << exception.what() << std::endl;
+        }
     }
 }
 
 void Menu::switchOption( int const choice ) {
-    switch ( static_cast< SyncApp::MenuOption > ( choice + 1 ) ) {   
+    switch ( static_cast< SyncApp::MenuOption > ( choice ) ) {   
         case SyncApp::MenuOption::SyncMachines :
             /* code */
             break;
@@ -32,7 +42,7 @@ void Menu::switchOption( int const choice ) {
     }
 }
 
-Menu::printMenu() const {
+void Menu::printMenu() const {
     int menu_num { 1 };
     std::cout << "SYNC APP\n";
     std::cout << menu_num++ << ". Synchronize machines\n";
