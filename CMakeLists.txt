@@ -36,6 +36,7 @@ set(SRC_LIST
     src/MachinesSync.cpp
     src/FileInfo.cpp
     src/Time.cpp
+    src/Menu.cpp
 )
 
 set(TEST_LIST
@@ -44,6 +45,7 @@ set(TEST_LIST
     src/MachinesSync.cpp
     src/FileInfo.cpp
     src/Time.cpp
+    src/Menu.cpp
     ut/FileInfoTests.cpp
     ut/MachinesSyncTests.cpp
     ut/MachineTests.cpp
