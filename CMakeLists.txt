@@ -31,7 +31,11 @@ set(SRC_LIST
 )
 
 set(TEST_LIST
+    ut/FileInfoTests.cpp
+    ut/MachineSyncTests.cpp
     ut/MachineTests.cpp
+    ut/SynchronizerTests.cpp
+    ut/TimeTests.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
