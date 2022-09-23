@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-class MachineTests : public testing::Test {
+class FileInfoTest : public testing::Test {
     void SetUp() override {
 
     }
@@ -9,5 +9,3 @@ class MachineTests : public testing::Test {
 
     }
 };
-
-//TEST_F( )

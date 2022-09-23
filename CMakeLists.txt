@@ -5,9 +5,11 @@ project(FilesSync LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#add_subdirectory(thirdparty)
-#add_subdirectory(src)
-#add_subdirectory(ut)
+# add_subdirectory(thirdparty)
+# add_subdirectory(src)
+# add_subdirectory(ut)
+# include_directories(${PROJECT_SOURCE_DIR}/src)
+# include_directories(${PROJECT_SOURCE_DIR}/ut)
 
 include(FetchContent)
 FetchContent_Declare(googletest
