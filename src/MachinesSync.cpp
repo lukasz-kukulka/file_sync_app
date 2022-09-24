@@ -34,12 +34,11 @@ void MachinesSync::machinesInit() {
     auto const init_file_exist = synchronizer_->getDefaultSettingsFromFile().isDeleteSync;
     
     for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
-        std::cout << dir_entry << std::endl;
         machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
         if ( init_file_exist ) {
             machines_.back()->loadPreviouslyFilesInfo( getJsonData( machine_settings_file_path ), dir_entry );
         }
-        
+        std::cout << "dir_entry = " << dir_entry << std::endl;
     }
     
     for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
