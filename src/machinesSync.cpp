@@ -55,14 +55,18 @@ void MachinesSync::makeUniqueSyncFiles() {
     }
 }
 
-fs::directory_entry* MachinesSync::getNewestFile( fs::directory_entry* const file ) const {
+std::pair< std::string, std::unique_ptr < fs::directory_entry > > MachinesSync::getNewestFile( fs::directory_entry* const file ) const {
     auto const find = unique_machine_files_.find( file->path().filename() );
     auto new_record = std::make_pair< std::string, std::unique_ptr < fs::directory_entry > >( file->path().filename(), std::make_unique < fs::directory_entry >( *file ) );
     if ( find != unique_machine_files_.end() ) {
         if ( file->path().filename() == find->second->path().filename() ) {
-            //file->
+            if ( MainTime::getFileTime( *file ) > MainTime::getFileTime( *find->second ) ) {
+                new_record.second = std::make_unique < fs::directory_entry >( *file );
+            } else {
+                new_record.second = std::make_unique < fs::directory_entry >( *find->second );
+            }
         }
     }
-
+    return new_record;
 }
 
