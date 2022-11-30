@@ -21,11 +21,12 @@ private:
     void machinesFilesInit();
     void pathMachinesInit();
     void makeUniqueSyncFiles();
+    fs::directory_entry* getNewestFile( fs::directory_entry* const file ) const;
 
     std::string main_path_{};
     std::string machines_path_{};
     std::vector< std::unique_ptr< Machine > > machines_;
     fs::path machine_setting_path_{};
     std::unique_ptr< Synchronizer > synchronizer_{};
-    std::map< std::string, std::unique_ptr< FileInfo > > unique_machine_files_{};
+    std::map< std::string, std::unique_ptr< fs::directory_entry > > unique_machine_files_{};
 };
