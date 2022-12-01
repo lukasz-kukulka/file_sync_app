@@ -20,6 +20,8 @@ void Machine::setFilesPaths()
             exist_files_info_.emplace_back( file.path(), file.file_size(), getFileTime( file ) );
         }
     }
+    //test only 
+    new_files_info_ = exist_files_info_;
 }
 
 std::time_t Machine::getFileTime( fs::directory_entry file ) {
@@ -34,7 +36,11 @@ char* Machine::convertToLocalTime( std::time_t const& time ) {
 }
 
 void Machine::saveMachineFilesInfo( json const& json ) {
-    
+    // std::string temp{};
+    // for ( auto const& file : new_files_info_ ) {
+    //     temp += file 
+    // }
+    json.parse( new_files_info_ );
 }
 
 void Machine::loadPreviouslyFilesInfo( json const& json ) {
