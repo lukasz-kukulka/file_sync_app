@@ -33,7 +33,7 @@ char* Machine::convertToLocalTime( std::time_t const& time ) {
     return std::asctime(std::localtime(&time));
 }
 
-void Machine::saveMachineFilesInfo() {
+void Machine::saveMachineFilesInfo( json const& json ) {
     
 }
 
