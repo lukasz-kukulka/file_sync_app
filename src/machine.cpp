@@ -39,6 +39,6 @@ void Machine::saveMachineFilesInfo() {
 
 void Machine::loadPreviouslyFilesInfo( json const& json ) {
     for ( auto const& file : json.at( "machine_name_" ) ) {
-
+        prev_files_info_.emplace_back( file.at( "path" ), file.at( "file_size" ), file.at( "mod_time" ) );
     }
 }
