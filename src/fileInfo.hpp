@@ -1,15 +1,15 @@
 #pragma once
 
 #include <filesystem>
-
+#include <string>
 namespace fs = std::filesystem;
 
 class FileInfo {
 public:
-    FileInfo( fs::directory_entry directory_entry, std::time_t time );
+    FileInfo( std::string path, uint64_t file_size, uint64_t mod_time );
     auto operator<=>(const FileInfo& other) const = default;
 private:
-    fs::path path_{};
+    std::string path_{};
     uint64_t file_size_{};
-    std::time_t mod_time_{};
+    uint64_t mod_time_{};
 };
