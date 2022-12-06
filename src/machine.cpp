@@ -37,6 +37,6 @@ void Machine::saveMachineFilesInfo() {
     
 }
 
-void Machine::loadMachineFilesInfo( json const& json ) {
+void Machine::loadPreviouslyFilesInfo( json const& json ) {
     
 }

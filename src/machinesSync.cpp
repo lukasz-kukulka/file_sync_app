@@ -27,16 +27,13 @@ json MachinesSync::getJsonData( fs::path const& path ) {
 void MachinesSync::machinesInit() {   
     auto const path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
     auto const json = getJsonData( path );
+    auto const init_file_exist =  synchronizer_->getDefaultSettingsFromFile().lastSyncDate;
 
-    if( not synchronizer_->getDefaultSettingsFromFile().lastSyncDate ) {
-        for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
-                machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
-                std::cout <<"\n\n\n";
-            }
+    for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
+        machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
+        if ( init_file_exist ) {
+            machines_.back()->loadPreviouslyFilesInfo( getJsonData( dir_entry.path() ) );
+        }
     }
-}
-
-void MachinesSync::loadFilesInfoToMAchinesFromFiles() {
-
 }
 
