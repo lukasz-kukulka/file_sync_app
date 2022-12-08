@@ -17,7 +17,7 @@ void Machine::setFilesPaths()
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
         if ( file.is_regular_file() ) {
             std::cout <<  file.path() << ":  " << getFileTime( file ) << '\n';
-            files_status_.push_back( file, getFileTime( file ) );
+            exist_files_info_.emplace_back( file, getFileTime( file ) );
         }
     }
 }
@@ -37,6 +37,6 @@ void Machine::saveMachineFilesInfo() {
     
 }
 
-void Machine::loadMachineFilesInfo() {
+void Machine::loadMachineFilesInfo( json const& json ) {
     
 }

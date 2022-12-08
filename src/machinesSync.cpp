@@ -34,6 +34,9 @@ void MachinesSync::machinesInit() {
                 std::cout <<"\n\n\n";
             }
     }
-    
+}
+
+void MachinesSync::loadFilesInfoToMAchinesFromFiles() {
+
 }
 
