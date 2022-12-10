@@ -6,16 +6,8 @@ using namespace std::literals;
 Machine::Machine( fs::path path ) 
     :path_( path )
 {
-    path_.filename();
     setFilesPaths();
-    // for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
-    //     if ( file.is_regular_file() ) {
-    //         //std::cout <<  file.path() << ":  " << getFileTime( file ) << '\n';
-    //     }
-    // }
-    // std::cout << fs::current_path(fs::temp_directory_path( path_ )) << '\n';
     std::cout <<  path_.filename() << '\n';
-    //fs::directory_entry( path_ );
 }
 
 void Machine::setFilesPaths()
@@ -25,7 +17,6 @@ void Machine::setFilesPaths()
             //std::cout <<  file.path() << ":  " << getFileTime( file ) << '\n';
         }
     }
-
 }
 
 std::time_t Machine::getFileTime( fs::directory_entry file ) {
