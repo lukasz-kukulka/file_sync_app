@@ -33,8 +33,8 @@ std::time_t Machine::getFileTime( fs::directory_entry file ) {
     return time;
 }
 
-char* Machine::convertToLocalTime( std::time_t time ) {
-    
+char* Machine::convertToLocalTime( std::time_t const& time ) {
+    return std::asctime(std::localtime(&time));
 }
 
 void Machine::saveMachineInfo() {
