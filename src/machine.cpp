@@ -27,7 +27,10 @@ void Machine::setFilesPaths()
 }
 
 std::time_t Machine::getFileTime( fs::directory_entry file, bool is_local_time ) {
-    
+    auto file_time = file.last_write_time();
+    auto f_sys_time = std::chrono::file_clock::to_sys( file_time );
+    std::time_t time = std::chrono::system_clock::to_time_t( f_sys_time );
+    return time;
 }
 
 void Machine::saveMachineInfo() {
