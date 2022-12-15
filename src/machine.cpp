@@ -6,24 +6,26 @@ using namespace std::literals;
 Machine::Machine( fs::path path ) 
     :path_( path )
 {
+    path_.filename();
     setFilesPaths();
+    // for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
+    //     if ( file.is_regular_file() ) {
+    //         //std::cout <<  file.path() << ":  " << getFileTime( file ) << '\n';
+    //     }
+    // }
+    // std::cout << fs::current_path(fs::temp_directory_path( path_ )) << '\n';
+    std::cout <<  path_.filename() << '\n';
+    //fs::directory_entry( path_ );
 }
 
 void Machine::setFilesPaths()
 {
-    
-    auto get_time = [](fs::file_time_type const& ftime) {
-        std::time_t time = std::chrono::system_clock::to_time_t( std::chrono::file_clock::to_sys(ftime) );
-        return time;
-        //return std::asctime(std::localtime(&time));
-         };
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
-        auto xx = std::chrono::system_clock::now();
-        std::chrono::system_clock::to_time_t( xx );
-        std::cout <<  std::chrono::system_clock::to_time_t( xx ) << "  -   " << get_time( file.last_write_time() ) << "  -   \n";
+        if ( file.is_regular_file() ) {
+            //std::cout <<  file.path() << ":  " << getFileTime( file ) << '\n';
+        }
     }
-    
-    //std::vector< fs::path > files_path_{};
+
 }
 
 std::time_t Machine::getFileTime( fs::directory_entry file ) {
@@ -37,10 +39,10 @@ char* Machine::convertToLocalTime( std::time_t const& time ) {
     return std::asctime(std::localtime(&time));
 }
 
-void Machine::saveMachineInfo() {
+void Machine::saveMachineFilesInfo() {
     
 }
 
-void Machine::loadMachineInfo() {
+void Machine::loadMachineFilesInfo() {
     
 }

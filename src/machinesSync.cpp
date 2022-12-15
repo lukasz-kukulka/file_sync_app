@@ -1,5 +1,7 @@
 #include "machinesSync.hpp"
 #include <iostream>
+#include <ranges>
+#include <algorithm>
 
 namespace {
     const std::string kSettingsDirectory = "/settings";
@@ -17,11 +19,14 @@ void MachinesSync::run() {
     machinesInit();
 }
 
+json MachinesSync::getJsonData( fs::path const& path ) {
+    std::ifstream stream( path );
+    return json::parse( stream );
+}
+
 bool MachinesSync::isFirstInit() {
     auto const path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
-    //std::cout <<  path << "   ------------TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT------------\n";
     std::ifstream stream( path );
-    std::cout << path;
     auto json = json::parse( stream );
     if ( json.empty() ) {
         return true;
@@ -30,14 +35,13 @@ bool MachinesSync::isFirstInit() {
 }
 
 void MachinesSync::machinesInit()
-{
-    if ( isFirstInit() ) {
-        
+{   
+    if( isFirstInit() ) {
+        for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
+                machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
+                std::cout <<"\n\n\n";
+            }
     }
-    for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) 
-    {
-        machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
-        //std::cout << dir_entry.path().filename() << '\n';
-    }
+    
 }
 
