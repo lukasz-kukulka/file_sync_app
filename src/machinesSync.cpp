@@ -24,19 +24,10 @@ json MachinesSync::getJsonData( fs::path const& path ) {
     return json::parse( stream );
 }
 
-bool MachinesSync::isFirstInit() {
+void MachinesSync::machinesInit() {   
     auto const path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
-    std::ifstream stream( path );
-    auto json = json::parse( stream );
-    if ( json.empty() ) {
-        return true;
-    }
-    return false;
-}
-
-void MachinesSync::machinesInit()
-{   
-    if( isFirstInit() ) {
+    auto const json = getJsonData( path );
+    if( synchronizer_->getDefaultSettingsFromFile().lastSyncDate ) {
         for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
                 machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
                 std::cout <<"\n\n\n";

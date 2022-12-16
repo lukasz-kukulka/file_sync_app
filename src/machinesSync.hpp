@@ -16,7 +16,6 @@ public:
     void run();
 private:
     json getJsonData( fs::path const& path );
-    bool isFirstInit();
     void machinesInit();
     void machinesFilesInit();
     void pathMachinesInit();
