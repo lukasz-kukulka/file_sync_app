@@ -7,7 +7,7 @@ namespace {
     const std::string kDefaultSettings = "/settings/machines_default_settings.json";
 }
 
-Synchronizer::Synchronizer( std::string  main_path ) 
+Synchronizer::Synchronizer( std::string const & main_path ) 
     : main_path_( main_path )
 {
     loadDefaultSettingsFromFile();
@@ -29,11 +29,13 @@ void Synchronizer::loadDefaultSettingsFromFile()
     std::ifstream stream( path );
     auto json = json::parse( stream );
     
-    default_settings_ = DefaultSettingsInfo{ .machineDirectory = json.at( "machine_directory" ),
-    .isDeleteSync = json.at( "delete_sync" ),
-    .syncTime = json.at( "sync_time" ),
-    .machineSettingsFile = json.at( "machine_settings_file" ),
-    .lastSyncDate = json.at( "last_sync_date" ) };
+    default_settings_ = DefaultSettingsInfo{ 
+        .machineDirectory = json.at( "machine_directory" ),
+        .isDeleteSync = json.at( "delete_sync" ),
+        .syncTime = json.at( "sync_time" ),
+        .machineSettingsFile = json.at( "machine_settings_file" ),
+        .lastSyncDate = json.at( "last_sync_date" ) 
+    };
 }
 
 void Synchronizer::saveDefaultSettingsToFile()

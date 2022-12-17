@@ -5,7 +5,6 @@
 #include <filesystem>
 
 namespace fs = std::filesystem;
-
 using json = nlohmann::json;
 
 struct DefaultSettingsInfo {
@@ -18,7 +17,7 @@ struct DefaultSettingsInfo {
 };
 class Synchronizer {
 public:
-    Synchronizer( std::string  main_path );
+    Synchronizer( std::string const & main_path );
 
     std::string getMachinePath() const;
     DefaultSettingsInfo DefaultSettingsFromFile() const;

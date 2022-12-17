@@ -8,10 +8,8 @@ class FileInfo {
 public:
     FileInfo( fs::directory_entry directory_entry);
     auto operator<=>( const FileInfo& lhs ) const = default;
-    // bool operator==( const FileInfo& lhs ) const;
 private:
     std::time_t setSystemTime( fs::file_time_type const& ftime );
-
 
     std::time_t system_time_{};
     fs::directory_entry directory_entry_{};

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "fileInfo.hpp"
-
 #include <chrono>
 #include <filesystem>
 #include <string>
