@@ -9,6 +9,7 @@ FileInfo::FileInfo( fs::directory_entry directory_entry )
 bool FileInfo::operator==( const FileInfo& lhs ) const
 {
     //TODO
+    
     return true;
 }
 

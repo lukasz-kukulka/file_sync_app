@@ -13,6 +13,8 @@ struct DefaultSettingsInfo {
     bool isDeleteSync{};
     std::time_t syncTime{};
     std::string machineSettingsFile{};
+    std::time_t lastSyncDate{}; 
+
 };
 class Synchronizer {
 public:
@@ -21,7 +23,8 @@ public:
     std::string getMachinePath() const;
     DefaultSettingsInfo DefaultSettingsFromFile() const;
 private:
-    void setDefaultSettingsFromFile();
+    void loadDefaultSettingsFromFile();
+    void saveDefaultSettingsToFile();
     void setMachinesPath();
     
     std::string main_path_{};

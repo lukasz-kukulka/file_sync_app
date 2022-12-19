@@ -10,7 +10,7 @@ namespace {
 Synchronizer::Synchronizer( std::string  main_path ) 
     : main_path_( main_path )
 {
-    setDefaultSettingsFromFile();
+    loadDefaultSettingsFromFile();
     setMachinesPath();
 }
 
@@ -23,7 +23,7 @@ void Synchronizer::setMachinesPath() {
     machines_path_ = main_path_ + default_settings_.machineDirectory;
 }
 
-void Synchronizer::setDefaultSettingsFromFile()
+void Synchronizer::loadDefaultSettingsFromFile()
 {
     auto const path = main_path_ + kDefaultSettings;
     std::ifstream stream( path );
@@ -32,6 +32,12 @@ void Synchronizer::setDefaultSettingsFromFile()
     default_settings_ = DefaultSettingsInfo{ .machineDirectory = json.at( "machine_directory" ),
     .isDeleteSync = json.at( "delete_sync" ),
     .syncTime = json.at( "sync_time" ),
-    .machineSettingsFile = json.at( "machine_settings_file" ) };
+    .machineSettingsFile = json.at( "machine_settings_file" ),
+    .lastSyncDate = json.at( "last_sync_date" ) };
+}
+
+void Synchronizer::saveDefaultSettingsToFile()
+{
+    
 }
 
