@@ -19,4 +19,11 @@ void Machine::setFilesPaths()
     }
     
     //std::vector< fs::path > files_path_{};
-} 
+}
+void Machine::saveMachineInfo() {
+
+}
+
+void Machine::loadMachineInfo() {
+    
+}
