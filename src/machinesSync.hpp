@@ -13,6 +13,7 @@ public:
 
 private:
     void machinesInit();
+    void machinesFilesInit();
     std::string machines_path_{};
     std::vector< std::unique_ptr< Machine > > machines_;
 };

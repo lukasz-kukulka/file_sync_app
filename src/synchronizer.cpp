@@ -26,6 +26,5 @@ void Synchronizer::setMachinesPath() {
 std::string Synchronizer::getParsedSettings( std::string const& path, std::string const& settings_name ) {
     std::ifstream stream( path );
     auto json = json::parse( stream );
-    //std::cout << json.at( settings_name ) << '\n';
     return json.at( settings_name );
 }

@@ -1,13 +1,20 @@
 #pragma once
-#include <string>
+
+#include "fileInfo.hpp"
+
+#include <chrono>
 #include <filesystem>
+#include <string>
+#include <vector>
 
 namespace fs = std::filesystem;
 
 class Machine {
 public:
-    Machine( std::string name );
-
+    Machine( fs::path path );
+    
 private:
-    std::string name_{};
+    void setFilesPaths();
+    std::vector< FileInfo > files_status_{};
+    fs::path path_{};
 };

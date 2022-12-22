@@ -9,9 +9,10 @@ MachinesSync::MachinesSync( std::string const& machines_path )
 
 void MachinesSync::machinesInit()
 {
-    for (auto const& dir_entry : std::filesystem::directory_iterator{ machines_path_ } ) 
+    for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) 
     {
-        machines_.push_back( std::make_unique< Machine > ( dir_entry.path().filename() ) );
+        fs::path x = dir_entry.path();
+        machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
         //std::cout << dir_entry.path().filename() << '\n';
     }
 }
