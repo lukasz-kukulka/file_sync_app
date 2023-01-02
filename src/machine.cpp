@@ -1,5 +1,7 @@
 #include "machine.hpp"
 
-Machine::Machine() {
+Machine::Machine( std::string name ) 
+    :name_( name )
+{
     
 }
