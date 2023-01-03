@@ -14,14 +14,16 @@ FetchContent_Declare(googletest
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG release-1.12.1
   )
-FetchContent_MakeAvailable(googletest)
 FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
+
+FetchContent_MakeAvailable(googletest)
 FetchContent_MakeAvailable(json)
 
 set(SRC_LIST
     main.cpp
     src/machine.cpp
     src/synchronizer.cpp
+    src/machinesSync.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
