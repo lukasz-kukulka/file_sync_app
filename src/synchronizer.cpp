@@ -14,6 +14,10 @@ Synchronizer::Synchronizer( fs::path main_path )
     setMachinesPath();
 }
 
+std::string Synchronizer::getMachinePath() const {
+    return machines_path_;
+}
+
 void Synchronizer::setMachinesPath() {
     auto const machine_path = static_cast < std::string > ( main_path_ ) + kSettingsFiles + kDefaultSettings;
     machines_path_ = getParsedSettings( machine_path, "machine_directory"  );

@@ -12,7 +12,7 @@ class Synchronizer {
 public:
     Synchronizer( fs::path main_path );
 
-    //getSettings() const;
+    std::string getMachinePath() const;
 private:
     void setMachinesPath();
     std::string getParsedSettings( std::string const& path, std::string const& settings_name );
