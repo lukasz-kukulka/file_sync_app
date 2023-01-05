@@ -34,3 +34,6 @@
 #Folders
 /build
 /syncFiles
+
+#Project settings files
+/.vscode
