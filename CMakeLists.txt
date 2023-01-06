@@ -21,6 +21,7 @@ FetchContent_MakeAvailable(json)
 set(SRC_LIST
     main.cpp
     src/machine.cpp
+    src/synchronizer.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
