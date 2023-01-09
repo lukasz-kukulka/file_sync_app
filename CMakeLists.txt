@@ -28,7 +28,7 @@ FetchContent_MakeAvailable(googletest)
 
 set(SRC_LIST
     main.cpp
-    # src/fileInfo.cpp
+    src/machine.cpp
     # src/fileContainer.cpp
     # src/fileSynchronization.cpp
     # src/folder.cpp
