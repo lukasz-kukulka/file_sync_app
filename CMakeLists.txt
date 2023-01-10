@@ -22,9 +22,9 @@ FetchContent_MakeAvailable(googletest)
 
 #FetchContent_MakeAvailable(fmt)
 
-add_compile_definitions(RELEASE) # adds compile definition
+#add_compile_definitions(RELEASE) # adds compile definition
 
-find_package(Threads)
+#find_package(Threads)
 
 set(SRC_LIST
     main.cpp
