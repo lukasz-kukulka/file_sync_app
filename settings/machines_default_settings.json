@@ -1,3 +1,4 @@
 {
-    "directory": "/Machines"
+    "machine_directory": "/Machines",
+    "delete_sync": false
 }
