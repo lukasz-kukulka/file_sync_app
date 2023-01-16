@@ -8,6 +8,12 @@ namespace fs = std::filesystem;
 
 using json = nlohmann::json;
 
+struct DefaultSettingsInfo {
+    std::string machineDirectory{};
+    bool isDeleteSync{};
+    std::time_t syncTime{};
+    std::string machineSettingsFile{};
+};
 class Synchronizer {
 public:
     Synchronizer( std::string  main_path );
