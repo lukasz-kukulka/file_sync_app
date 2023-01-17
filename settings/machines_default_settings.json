@@ -1,4 +1,5 @@
 {
     "machine_directory": "/Machines",
-    "delete_sync": false
+    "delete_sync": true,
+    "sync_time": 100
 }
