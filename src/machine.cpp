@@ -1,5 +1,4 @@
 #include "machine.hpp"
-
 #include <iostream>
 Machine::Machine( fs::path path ) 
     :path_( path )
@@ -15,8 +14,16 @@ void Machine::setFilesPaths()
         return time;//std::asctime(std::localtime(&time));
          };
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
-        std::cout << file.path()  << '\n';
+        std::cout << get_time( fs::last_write_time( file ) ) << '\n';
+        fs::current_path( file );
     }
     
     //std::vector< fs::path > files_path_{};
-} 
+}
+void Machine::saveMachineInfo() {
+
+}
+
+void Machine::loadMachineInfo() {
+    
+}

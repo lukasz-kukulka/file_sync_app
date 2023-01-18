@@ -15,6 +15,8 @@ public:
     
 private:
     void setFilesPaths();
+    void saveMachineInfo();
+    void loadMachineInfo();
     std::vector< FileInfo > files_status_{};
     fs::path path_{};
 };
