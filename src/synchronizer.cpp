@@ -4,13 +4,13 @@
 #include <ranges>
 
 namespace {
-    const std::string kSettingsFiles = "/settings";
-    const std::string kDefaultSettings = "/machines_default_settings.json";
+    const std::string kDefaultSettings = "/settings/machines_default_settings.json";
 }
 
 Synchronizer::Synchronizer( std::string  main_path ) 
     : main_path_( main_path )
 {
+    setDefaultSettingsFromFile();
     setMachinesPath();
 }
 
@@ -19,12 +19,19 @@ std::string Synchronizer::getMachinePath() const {
 }
 
 void Synchronizer::setMachinesPath() {
-    auto const machine_path = main_path_ + kSettingsFiles + kDefaultSettings;
-    machines_path_ = main_path_ + getParsedSettings( machine_path, "machine_directory"  );
+    auto const machine_path = main_path_ + kDefaultSettings;
+    machines_path_ = main_path_ + default_settings_.machineDirectory;
 }
 
-std::string Synchronizer::getParsedSettings( std::string const& path, std::string const& settings_name ) {
+void Synchronizer::setDefaultSettingsFromFile()
+{
+    auto const path = main_path_ + kDefaultSettings;
     std::ifstream stream( path );
     auto json = json::parse( stream );
-    return json.at( settings_name );
+    
+    default_settings_ = DefaultSettingsInfo{ .machineDirectory = json.at( "machine_directory" ),
+    .isDeleteSync = json.at( "delete_sync" ),
+    .syncTime = json.at( "sync_time" ),
+    .machineSettingsFile = json.at( "machine_settings_file" ) };
 }
+

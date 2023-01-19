@@ -19,9 +19,12 @@ public:
     Synchronizer( std::string  main_path );
 
     std::string getMachinePath() const;
+    DefaultSettingsInfo DefaultSettingsFromFile() const;
 private:
+    void setDefaultSettingsFromFile();
     void setMachinesPath();
-    std::string getParsedSettings( std::string const& path, std::string const& settings_name );
+    
     std::string main_path_{};
     std::string machines_path_{};
+    DefaultSettingsInfo default_settings_{};
 };
