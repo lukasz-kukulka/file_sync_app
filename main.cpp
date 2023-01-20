@@ -1,4 +1,3 @@
-#include "src/synchronizer.hpp"
 #include "src/machinesSync.hpp"
 #include <filesystem>
 #include <iostream>
@@ -7,8 +6,9 @@
 
 int main() {
     std::string main_path = fs::current_path().parent_path();
-    Synchronizer synchronizer( main_path );
-    MachinesSync machineSync( synchronizer.getMachinePath() );
+    MachinesSync machineSync{ main_path };
+    // Synchronizer synchronizer( main_path );
+    // MachinesSync machineSync( synchronizer.getMachinePath() );
 
     return 0;
 }
