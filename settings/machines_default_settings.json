@@ -2,6 +2,6 @@
     "machine_directory": "/Machines",
     "delete_sync": true,
     "sync_time": 100,
-    "machine_settings_file": "machine_settings.json",
+    "machine_settings_file": "/machine_settings.json",
     "last_sync_date": 0
 }

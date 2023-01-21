@@ -14,6 +14,8 @@ public:
     
 private:
     void setFilesPaths();
+    std::time_t getFileTime( fs::directory_entry file );
+    char* convertToLocalTime( std::time_t const& time );
     void saveMachineInfo();
     void loadMachineInfo();
     std::vector< FileInfo > files_status_{};

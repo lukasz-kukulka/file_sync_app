@@ -7,8 +7,6 @@
 int main() {
     std::string main_path = fs::current_path().parent_path();
     MachinesSync machineSync{ main_path };
-    // Synchronizer synchronizer( main_path );
-    // MachinesSync machineSync( synchronizer.getMachinePath() );
-
+    machineSync.run();
     return 0;
 }

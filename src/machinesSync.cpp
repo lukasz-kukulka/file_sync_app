@@ -8,9 +8,9 @@ namespace {
 
 MachinesSync::MachinesSync( std::string const& main_path_ ) 
     : main_path_( main_path_ )
-    , synchronizer_( std::make_unique< Synchronizer >( main_path_, kSettingsDirectory + kDefaultSettingsFileName ) ) 
-    , machines_path_( synchronizer_->getMachinePath () )
+    , synchronizer_( std::make_unique< Synchronizer >( main_path_, kSettingsDirectory + kDefaultSettingsFileName ) )  
 {
+    machines_path_ = synchronizer_->getMachinePath ();
 }
 
 void MachinesSync::run() {
@@ -18,8 +18,10 @@ void MachinesSync::run() {
 }
 
 bool MachinesSync::isFirstInit() {
-    auto const path = main_path_ + kSettingsDirectory;
+    auto const path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
+    //std::cout <<  path << "   ------------TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT------------\n";
     std::ifstream stream( path );
+    std::cout << path;
     auto json = json::parse( stream );
     if ( json.empty() ) {
         return true;
@@ -30,7 +32,7 @@ bool MachinesSync::isFirstInit() {
 void MachinesSync::machinesInit()
 {
     if ( isFirstInit() ) {
-        std::cout << 
+        
     }
     for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) 
     {
