@@ -17,9 +17,9 @@ void Machine::setFilesPaths()
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
         if ( file.is_regular_file() ) {
             std::cout <<  file.path() << ":  " << getFileTime( file ) << '\n';
+            files_status_.push_back( file, getFileTime( file ) );
         }
     }
-
 }
 
 std::time_t Machine::getFileTime( fs::directory_entry file ) {
