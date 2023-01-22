@@ -15,9 +15,11 @@ public:
     MachinesSync( std::string const& main_path_ );
     void run();
 private:
-    bool isFirstInit();
+    json getJsonData( fs::path const& path );
     void machinesInit();
     void machinesFilesInit();
+    void pathMachinesInit();
+
     std::string main_path_{};
     std::string machines_path_{};
     std::vector< std::unique_ptr< Machine > > machines_;

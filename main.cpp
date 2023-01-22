@@ -2,7 +2,7 @@
 #include <filesystem>
 #include <iostream>
 
-//namespace fs = std::filesystem;
+namespace fs = std::filesystem;
 
 int main() {
     std::string main_path = fs::current_path().parent_path();

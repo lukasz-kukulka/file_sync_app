@@ -1,5 +1,7 @@
 #include "machinesSync.hpp"
 #include <iostream>
+#include <ranges>
+#include <algorithm>
 
 namespace {
     const std::string kSettingsDirectory = "/settings";
@@ -17,27 +19,21 @@ void MachinesSync::run() {
     machinesInit();
 }
 
-bool MachinesSync::isFirstInit() {
-    auto const path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
-    //std::cout <<  path << "   ------------TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT------------\n";
+json MachinesSync::getJsonData( fs::path const& path ) {
     std::ifstream stream( path );
-    std::cout << path;
-    auto json = json::parse( stream );
-    if ( json.empty() ) {
-        return true;
-    }
-    return false;
+    return json::parse( stream );
 }
 
-void MachinesSync::machinesInit()
-{
-    if ( isFirstInit() ) {
-        
+void MachinesSync::machinesInit() {   
+    auto const path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
+    auto const json = getJsonData( path );
+
+    if( not synchronizer_->getDefaultSettingsFromFile().lastSyncDate ) {
+        for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
+                machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
+                std::cout <<"\n\n\n";
+            }
     }
-    for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) 
-    {
-        machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
-        //std::cout << dir_entry.path().filename() << '\n';
-    }
+    
 }
 
