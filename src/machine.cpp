@@ -17,9 +17,9 @@ void Machine::setFilesPaths()
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
         if ( file.is_regular_file() ) {
             std::cout <<  file.path() << ":  " << getFileTime( file ) << '\n';
+            exist_files_info_.emplace_back( file.path(), file.file_size(), getFileTime( file ) );
         }
     }
-
 }
 
 std::time_t Machine::getFileTime( fs::directory_entry file ) {
@@ -33,10 +33,12 @@ char* Machine::convertToLocalTime( std::time_t const& time ) {
     return std::asctime(std::localtime(&time));
 }
 
-void Machine::saveMachineFilesInfo() {
+void Machine::saveMachineFilesInfo( json const& json ) {
     
 }
 
-void Machine::loadMachineFilesInfo() {
-    
+void Machine::loadPreviouslyFilesInfo( json const& json ) {
+    for ( auto const& file : json.at( "machine_name_" ) ) {
+        prev_files_info_.emplace_back( file.at( "path" ), file.at( "file_size" ), file.at( "mod_time" ) );
+    }
 }
