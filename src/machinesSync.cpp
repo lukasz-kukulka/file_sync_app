@@ -35,5 +35,12 @@ void MachinesSync::machinesInit() {
             machines_.back()->loadPreviouslyFilesInfo( getJsonData( dir_entry.path() ) );
         }
     }
+
+    for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
+        machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
+        
+            machines_.back()->saveMachineFilesInfo( getJsonData( dir_entry.path() ) );
+        
+    }
 }
 

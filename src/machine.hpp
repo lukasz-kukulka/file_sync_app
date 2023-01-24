@@ -23,6 +23,7 @@ private:
     
     std::vector< FileInfo > exist_files_info_{};
     std::vector< FileInfo > prev_files_info_{};
+    std::vector< FileInfo > new_files_info_{};
     fs::path path_{};
     std::string machine_name_{};
 };
