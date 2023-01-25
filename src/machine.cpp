@@ -16,8 +16,8 @@ void Machine::setFilesPaths()
 {
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
         if ( file.is_regular_file() ) {
-            std::cout <<  file.path() << ":  " << getFileTime( file ) << '\n';
-            exist_files_info_.emplace_back( file.path(), file.file_size(), getFileTime( file ) );
+            files_pointers_.push_back( std::make_unique< fs::directory_entry >( file) );
+            //exist_files_info_.emplace_back( file.path(), file.file_size(), getFileTime( file ) );
         }
     }
     //test only 
