@@ -25,4 +25,5 @@ private:
     std::vector< std::unique_ptr< Machine > > machines_;
     fs::path machine_setting_path_{};
     std::unique_ptr< Synchronizer > synchronizer_{};
+    std::vector< std::unique_ptr< fs::directory_entry > > unique_machine_files_{};
 };

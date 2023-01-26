@@ -44,3 +44,8 @@ void MachinesSync::machinesInit() {
     }
 }
 
+void MachinesSync::makeUniqueSyncFiles()
+{
+    
+}
+
