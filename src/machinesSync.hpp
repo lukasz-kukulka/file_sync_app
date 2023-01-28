@@ -19,6 +19,7 @@ private:
     void machinesInit();
     void machinesFilesInit();
     void pathMachinesInit();
+    void makeUniqueSyncFiles();
 
     std::string main_path_{};
     std::string machines_path_{};
