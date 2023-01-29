@@ -13,6 +13,7 @@ namespace fs = std::filesystem;
 class Machine {
 public:
     Machine( fs::path path );
+    std::vector< std::unique_ptr< fs::directory_entry > > getAllMachileFiles();
     void loadPreviouslyFilesInfo( json const& json );
     void saveMachineFilesInfo( json const& json );
 private:

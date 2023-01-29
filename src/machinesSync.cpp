@@ -46,6 +46,10 @@ void MachinesSync::machinesInit() {
 
 void MachinesSync::makeUniqueSyncFiles()
 {
-    
+    // for ( auto const & machine : machines_ )
+    // {
+    //     for ( auto const & file : machine )
+    // }
+    // unique_machine_files_
 }
 

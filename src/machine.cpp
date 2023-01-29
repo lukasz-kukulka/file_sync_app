@@ -12,6 +12,11 @@ Machine::Machine( fs::path path )
     std::cout <<  path_.filename() << '\n';
 }
 
+std::vector< std::unique_ptr< fs::directory_entry > > Machine::getAllMachileFiles()
+{
+    
+}
+
 void Machine::setFilesPaths()
 {
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
