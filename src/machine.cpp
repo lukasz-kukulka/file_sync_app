@@ -14,7 +14,7 @@ Machine::Machine( fs::path path )
 
 std::vector< std::unique_ptr< fs::directory_entry > > Machine::getAllMachileFiles()
 {
-    
+    return files_pointers_;
 }
 
 void Machine::setFilesPaths()
