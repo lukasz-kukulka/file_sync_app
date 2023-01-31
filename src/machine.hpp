@@ -18,7 +18,6 @@ public:
     void saveMachineFilesInfo( json const& json );
 private:
     void setFilesPaths();
-    std::time_t getFileTime( fs::directory_entry file );
     char* convertToLocalTime( std::time_t const& time );
     
     

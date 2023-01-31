@@ -1,8 +1,15 @@
 #include "fileInfo.hpp"
 #include <iostream>
-FileInfo::FileInfo( std::string path, uint64_t file_size, uint64_t mod_time )
-    : path_( path )
-    , file_size_( file_size )
-    , mod_time_( mod_time )
+FileInfo::FileInfo( fs::directory_entry const& file )
+    : name_( file.path().filename() )
+    , mod_time_( getFileTime( file ))
+    , file_size_( file.file_size() )
 {
+}
+
+std::time_t FileInfo::getFileTime( fs::directory_entry file ) {
+    auto file_time = file.last_write_time();
+    auto f_sys_time = std::chrono::file_clock::to_sys( file_time );
+    std::time_t time = std::chrono::system_clock::to_time_t( f_sys_time );
+    return time;
 }

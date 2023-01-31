@@ -6,10 +6,12 @@ namespace fs = std::filesystem;
 
 class FileInfo {
 public:
-    FileInfo( std::string path, uint64_t file_size, uint64_t mod_time );
+    FileInfo( fs::directory_entry const& file );
     auto operator<=>(const FileInfo& other) const = default;
+
 private:
-    std::string path_{};
-    uint64_t file_size_{};
+    std::time_t getFileTime( fs::directory_entry file );
+    std::string name_{};
     uint64_t mod_time_{};
+    uint64_t file_size_{};
 };
