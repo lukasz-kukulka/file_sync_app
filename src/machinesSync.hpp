@@ -13,6 +13,7 @@ using json = nlohmann::json;
 class MachinesSync {
 public:
     MachinesSync( std::string const& main_path_ );
+
     void run();
 private:
     json getJsonData( fs::path const& path );
@@ -26,5 +27,5 @@ private:
     std::vector< std::unique_ptr< Machine > > machines_;
     fs::path machine_setting_path_{};
     std::unique_ptr< Synchronizer > synchronizer_{};
-    std::vector< std::unique_ptr< fs::directory_entry > > unique_machine_files_{};
+    std::map< std::string, std::unique_ptr< FileInfo > > unique_machine_files_{};
 };
