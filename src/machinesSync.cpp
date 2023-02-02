@@ -49,7 +49,10 @@ void MachinesSync::makeUniqueSyncFiles()
     for ( auto const & machine : machines_ )
     {
         for ( auto const & file : machine->getAllMachileFiles() )
-        
+        if ( unique_machine_files_.contains( file->path().filename() ) )
+        {
+            if( file->)
+        }
     }
     unique_machine_files_
 }
