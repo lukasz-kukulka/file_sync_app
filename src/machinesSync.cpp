@@ -51,7 +51,7 @@ void MachinesSync::makeUniqueSyncFiles()
         for ( auto const & file : machine->getAllMachileFiles() )
         if ( unique_machine_files_.contains( file->path().filename() ) )
         {
-            if( file->)
+            if( file-)
         }
     }
     unique_machine_files_
