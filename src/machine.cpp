@@ -12,23 +12,21 @@ Machine::Machine( fs::path path )
     std::cout <<  path_.filename() << '\n';
 }
 
+std::vector< std::unique_ptr< fs::directory_entry > > Machine::getAllMachileFiles()
+{
+    return files_pointers_;
+}
+
 void Machine::setFilesPaths()
 {
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
         if ( file.is_regular_file() ) {
-            std::cout <<  file.path() << ":  " << getFileTime( file ) << '\n';
-            exist_files_info_.emplace_back( file.path(), file.file_size(), getFileTime( file ) );
+            files_pointers_.push_back( std::make_unique< fs::directory_entry >( file) );
+            //exist_files_info_.emplace_back( file.path(), file.file_size(), getFileTime( file ) );
         }
     }
     //test only 
     new_files_info_ = exist_files_info_;
-}
-
-std::time_t Machine::getFileTime( fs::directory_entry file ) {
-    auto file_time = file.last_write_time();
-    auto f_sys_time = std::chrono::file_clock::to_sys( file_time );
-    std::time_t time = std::chrono::system_clock::to_time_t( f_sys_time );
-    return time;
 }
 
 char* Machine::convertToLocalTime( std::time_t const& time ) {
