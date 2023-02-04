@@ -24,7 +24,8 @@ json MachinesSync::getJsonData( fs::path const& path ) {
     return json::parse( stream );
 }
 
-void MachinesSync::machinesInit() {   
+void MachinesSync::machinesInit() { 
+    // zrobic to na kilku watkach  
     auto const path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
     //auto const json = getJsonData( path );
     auto const init_file_exist =  synchronizer_->getDefaultSettingsFromFile().lastSyncDate;
@@ -38,7 +39,6 @@ void MachinesSync::machinesInit() {
 
     for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
         machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
-        
             machines_.back()->saveMachineFilesInfo( getJsonData( dir_entry.path() ) );
         
     }
