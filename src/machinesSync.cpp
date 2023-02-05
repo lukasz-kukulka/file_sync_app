@@ -70,3 +70,11 @@ std::pair< std::string, std::unique_ptr < fs::directory_entry > > MachinesSync::
     return new_record;
 }
 
+void MachinesSync::changeFileIfIsOlder() {
+    for ( auto const & file : unique_machine_files_ ) {
+        if ( MainTime::getFileTime( *file.second ) < MainTime::getFileTime( *file.second ) ) {
+            
+        }
+    }
+}
+

@@ -22,6 +22,7 @@ private:
     void pathMachinesInit();
     void makeUniqueSyncFiles();
     std::pair< std::string, std::unique_ptr < fs::directory_entry > > getNewestFile( fs::directory_entry* const file ) const;
+    void changeFileIfIsOlder();
 
     std::string main_path_{};
     std::string machines_path_{};
