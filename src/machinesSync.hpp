@@ -21,7 +21,7 @@ private:
     void machinesFilesInit();
     void pathMachinesInit();
     void makeUniqueSyncFiles();
-    fs::directory_entry* getNewestFile( fs::directory_entry* const file ) const;
+    std::pair< std::string, std::unique_ptr < fs::directory_entry > > getNewestFile( fs::directory_entry* const file ) const;
 
     std::string main_path_{};
     std::string machines_path_{};
