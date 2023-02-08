@@ -72,9 +72,12 @@ std::pair< std::string, std::unique_ptr < fs::directory_entry > > MachinesSync::
 
 void MachinesSync::changeFileIfIsOlder() {
     for ( auto const & file : unique_machine_files_ ) {
-        if ( MainTime::getFileTime( *file.second ) < MainTime::getFileTime( *file.second ) ) {
-            
+        for( auto const & machine : machines_ ) {
+            if ( MainTime::getFileTime( *file.second ) < MainTime::getFileTime( *file.second ) ) {
+                
+            }
         }
+        
     }
 }
 
