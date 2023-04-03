@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #add_subdirectory(thirdparty)
 #add_subdirectory(src)
 #add_subdirectory(ut)
+include_directories(${PROJECT_SOURCE_DIR}/src)
 
 include(FetchContent)
 FetchContent_Declare(googletest
@@ -21,10 +22,11 @@ FetchContent_MakeAvailable(json)
 
 set(SRC_LIST
     main.cpp
-    src/machine.cpp
-    src/synchronizer.cpp
-    src/machinesSync.cpp
-    src/fileInfo.cpp
+    src/Machine.cpp
+    src/Synchronizer.cpp
+    src/MachinesSync.cpp
+    src/FileInfo.cpp
+    src/Time.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
