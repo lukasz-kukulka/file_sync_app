@@ -36,18 +36,26 @@ char* Machine::convertToLocalTime( std::time_t const& time ) {
     return std::asctime(std::localtime(&time));
 }
 
-void Machine::saveMachineFilesInfo( json const& json, std::string const& machine_name ) {
+void Machine::saveMachineFilesInfo( json const& json, fs::directory_entry dir_entry ) {
     std::string temp{};
     for ( auto const& file : new_files_info_ ) {
-        //temp += file.getPath(); 
+
     }
-    //json.parse( new_files_info_ );
 }
 
-void Machine::loadPreviouslyFilesInfo( json const& json, std::string const& machine_name ) {
-    for ( auto const& file : json.at( "machine_name_" ) ) {
-        //std::cout << file << '\n';
-        //prev_files_info_.emplace_back( file.at( "path" ), file.at( "file_size" ), file.at( "mod_time" ) );
+void Machine::loadPreviouslyFilesInfo( json const& json, fs::directory_entry dir_entry ) {
+    //.path().filename()
+    auto const machine_settings = json.at( dir_entry.path().filename() );
+    // for ( auto const& file_set : machine_settings ) {
+    //     auto file_info = FileInfo{ dir_entry };
+    //     prev_files_info_.emplace_back( file_info );
+    //     prev_files_info_.back().setFileParam( file_set.mod_time, file_set.path, file_set.file_size );
+    // }
+    std::cout << "LOAD: " << machine_settings << "\n";
+    for ( auto const & test : prev_files_info_ ) {
+
+        std::cout << test.getModTime() << "\n";
+
     }
 }
 

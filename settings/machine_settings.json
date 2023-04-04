@@ -1,1 +1,7 @@
-{}
+{
+    "machine1": {   
+        "mod_time": 99999, 
+        "path": "", 
+        "file_size": 0
+    }
+}
