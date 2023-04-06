@@ -10,14 +10,14 @@ Machine::Machine( fs::path path )
 {
     path_.filename();
     setFilesPaths();
-    std::cout <<  path_.filename() << '\n';
+    //std::cout <<  path_.filename() << '\n';
 }
 
-std::vector< std::unique_ptr< fs::directory_entry > > Machine::getAllMachileFiles()
+std::vector< std::unique_ptr< fs::directory_entry > > Machine::getAllMachineFiles()
 {
     // auto temp = std::vector< std::unique_ptr< fs::directory_entry > >(); 
     // return temp;
-    return files_pointers_;
+    return std::move( files_pointers_ );
 }
 
 void Machine::setFilesPaths()
@@ -25,7 +25,7 @@ void Machine::setFilesPaths()
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
         if ( file.is_regular_file() ) {
             files_pointers_.push_back( std::make_unique< fs::directory_entry >( file) );
-            //exist_files_info_.emplace_back( file.path(), file.file_size(), MainTime::getFileTime( file ) );
+            exist_files_info_.emplace_back( file );
         }
     }
     //test only 
@@ -36,16 +36,18 @@ char* Machine::convertToLocalTime( std::time_t const& time ) {
     return std::asctime(std::localtime(&time));
 }
 
-void Machine::saveMachineFilesInfo( json const& json ) {
+void Machine::saveMachineFilesInfo( json const& json, std::string const& machine_name ) {
     std::string temp{};
     for ( auto const& file : new_files_info_ ) {
-        temp += file.getPath(); 
+        //temp += file.getPath(); 
     }
     //json.parse( new_files_info_ );
 }
 
-void Machine::loadPreviouslyFilesInfo( json const& json ) {
+void Machine::loadPreviouslyFilesInfo( json const& json, std::string const& machine_name ) {
     for ( auto const& file : json.at( "machine_name_" ) ) {
+        //std::cout << file << '\n';
         //prev_files_info_.emplace_back( file.at( "path" ), file.at( "file_size" ), file.at( "mod_time" ) );
     }
 }
+

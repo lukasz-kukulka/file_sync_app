@@ -13,9 +13,9 @@ namespace fs = std::filesystem;
 class Machine {
 public:
     Machine( fs::path path );
-    std::vector< std::unique_ptr< fs::directory_entry > > getAllMachileFiles();
-    void loadPreviouslyFilesInfo( json const& json );
-    void saveMachineFilesInfo( json const& json );
+    std::vector< std::unique_ptr< fs::directory_entry > > getAllMachineFiles();
+    void loadPreviouslyFilesInfo( json const& json, std::string const& machine_name );
+    void saveMachineFilesInfo( json const& json, std::string const& machine_name );
 private:
     void setFilesPaths();
     char* convertToLocalTime( std::time_t const& time );

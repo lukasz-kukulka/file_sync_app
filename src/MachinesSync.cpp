@@ -14,6 +14,7 @@ MachinesSync::MachinesSync( std::string const& main_path_ )
     , synchronizer_( std::make_unique< Synchronizer >( main_path_, kSettingsDirectory + kDefaultSettingsFileName ) )  
 {
     machines_path_ = synchronizer_->getMachinePath ();
+    auto dir_entry = fs::directory_iterator{ machines_path_ };    
 }
 
 void MachinesSync::run() {
@@ -27,28 +28,26 @@ json MachinesSync::getJsonData( fs::path const& path ) {
 
 void MachinesSync::machinesInit() { 
     // zrobic to na kilku watkach  
-    auto const path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
-    //auto const json = getJsonData( path );
-    auto const init_file_exist =  synchronizer_->getDefaultSettingsFromFile().lastSyncDate;
-
+    fs::path const machine_settings_file_path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
+    auto const init_file_exist = synchronizer_->getDefaultSettingsFromFile().lastSyncDate;
     for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
         machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
         if ( init_file_exist ) {
-            machines_.back()->loadPreviouslyFilesInfo( getJsonData( dir_entry.path() ) );
+            machines_.back()->loadPreviouslyFilesInfo( machine_settings_file_path, dir_entry.path().filename() );
         }
     }
-
+    
     for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
         machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
-            machines_.back()->saveMachineFilesInfo( getJsonData( dir_entry.path() ) );
-        
+        machines_.back()->saveMachineFilesInfo( machine_settings_file_path, dir_entry.path().filename() );
     }
+    std::cout << "sync\n";
 }
 
 void MachinesSync::makeUniqueSyncFiles() {
     for ( auto const & machine : machines_ )
     {
-        // for ( auto const & file : machine->getAllMachileFiles() )
+        // for ( auto const & file : machine->getAllMachineFiles() )
         // {
             
         // }
@@ -77,7 +76,7 @@ void MachinesSync::changeFileIfIsOlder() {
 
     for ( auto const & file : unique_machine_files_ ) {
         for( auto const & machine : machines_ ) {
-            //if ( MainTime::getFileTime( *file.second ) < MainTime::getFileTime( machine->getAllMachileFiles() ) ) {
+            //if ( MainTime::getFileTime( *file.second ) < MainTime::getFileTime( machine->getAllMachineFiles() ) ) {
                 
            // }
         }
