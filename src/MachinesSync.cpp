@@ -33,15 +33,14 @@ void MachinesSync::machinesInit() {
     for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
         machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
         if ( init_file_exist ) {
-            machines_.back()->loadPreviouslyFilesInfo( machine_settings_file_path, dir_entry.path().filename() );
+            machines_.back()->loadPreviouslyFilesInfo( getJsonData( machine_settings_file_path ), dir_entry.path().filename() );
         }
     }
     
     for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
         machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
-        machines_.back()->saveMachineFilesInfo( machine_settings_file_path, dir_entry.path().filename() );
+        machines_.back()->saveMachineFilesInfo( getJsonData( machine_settings_file_path ), dir_entry.path().filename() );
     }
-    std::cout << "sync\n";
 }
 
 void MachinesSync::makeUniqueSyncFiles() {
