@@ -9,18 +9,15 @@ Machine::Machine( fs::path path )
     , machine_name_( path.filename() )
 {
     path_.filename();
-    setFilesPaths();
-    //std::cout <<  path_.filename() << '\n';
+    setExistingFileInfo();
 }
 
 std::vector< std::unique_ptr< fs::directory_entry > > Machine::getAllMachineFiles()
 {
-    // auto temp = std::vector< std::unique_ptr< fs::directory_entry > >(); 
-    // return temp;
     return std::move( files_pointers_ );
 }
 
-void Machine::setFilesPaths()
+void Machine::setExistingFileInfo()
 {
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
         if ( file.is_regular_file() ) {
@@ -28,26 +25,48 @@ void Machine::setFilesPaths()
             exist_files_info_.emplace_back( file );
         }
     }
-    //test only 
-    //new_files_info_ = exist_files_info_;
 }
 
 char* Machine::convertToLocalTime( std::time_t const& time ) {
     return std::asctime(std::localtime(&time));
 }
 
-void Machine::saveMachineFilesInfo( json const& json, std::string const& machine_name ) {
+void Machine::saveMachineFilesInfo( json const& json, fs::directory_entry dir_entry ) {
     std::string temp{};
     for ( auto const& file : new_files_info_ ) {
-        //temp += file.getPath(); 
+
     }
-    //json.parse( new_files_info_ );
 }
 
-void Machine::loadPreviouslyFilesInfo( json const& json, std::string const& machine_name ) {
-    for ( auto const& file : json.at( "machine_name_" ) ) {
-        //std::cout << file << '\n';
-        //prev_files_info_.emplace_back( file.at( "path" ), file.at( "file_size" ), file.at( "mod_time" ) );
+void Machine::loadPreviouslyFilesInfo( json const& json, fs::directory_entry const& dir_entry ) {
+    //.path().filename()
+    auto const machine_settings = json.at( dir_entry.path().filename() );
+    // for ( auto const& file_set : machine_settings ) {
+    //     // auto file_info = FileInfo{ dir_entry };
+    //     std::cout << "LOAD LOOP: " << file_set << "\n";
+    //     // prev_files_info_.emplace_back( file_info );
+    //     // prev_files_info_.back().setFileParam( file_set.mod_time, file_set.path, file_set.file_size );
+    // }
+    std::cout << machine_settings << std::endl;
+    for (auto const& file : machine_settings ) {
+        std::cout << file << std::endl;
     }
+
+    prev_files_info_.back().setFileParam( machine_settings[ "mod_time" ], machine_settings[ "path" ], machine_settings[ "file_size" ] );
+
+    //
+    if ( machine_settings ) {
+        // FileInfo file_info( dir_entry.path() );
+        // prev_files_info_.emplace_back( file_info );
+    }
+    
+    // prev_files_info_.back().setFileParam( machine_settings[ "mod_time" ], machine_settings[ "path" ], machine_settings[ "file_size" ] );
+
+    // std::cout << "LOAD: " << machine_settings << "\n" << std::endl;
+    // for ( auto const & test : prev_files_info_ ) {
+
+    //     std::cout << test.getModTime() << "\n";
+
+    // }
 }
 

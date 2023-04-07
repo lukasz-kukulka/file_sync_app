@@ -14,10 +14,10 @@ class Machine {
 public:
     Machine( fs::path path );
     std::vector< std::unique_ptr< fs::directory_entry > > getAllMachineFiles();
-    void loadPreviouslyFilesInfo( json const& json, std::string const& machine_name );
-    void saveMachineFilesInfo( json const& json, std::string const& machine_name );
+    void loadPreviouslyFilesInfo( json const& json, fs::directory_entry const& dir_entry );
+    void saveMachineFilesInfo( json const& json, fs::directory_entry dir_entry );
 private:
-    void setFilesPaths();
+    void setExistingFileInfo();
     char* convertToLocalTime( std::time_t const& time );
     
     
