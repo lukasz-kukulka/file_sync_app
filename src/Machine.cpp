@@ -33,40 +33,24 @@ char* Machine::convertToLocalTime( std::time_t const& time ) {
 
 void Machine::saveMachineFilesInfo( json const& json, fs::directory_entry dir_entry ) {
     std::string temp{};
+    std::cout << json << std::endl;
     for ( auto const& file : new_files_info_ ) {
-
+        
     }
 }
 
 void Machine::loadPreviouslyFilesInfo( json const& json, fs::directory_entry const& dir_entry ) {
-    //.path().filename()
     auto const machine_settings = json.at( dir_entry.path().filename() );
-    // for ( auto const& file_set : machine_settings ) {
-    //     // auto file_info = FileInfo{ dir_entry };
-    //     std::cout << "LOAD LOOP: " << file_set << "\n";
-    //     // prev_files_info_.emplace_back( file_info );
-    //     // prev_files_info_.back().setFileParam( file_set.mod_time, file_set.path, file_set.file_size );
-    // }
     std::cout << machine_settings << std::endl;
     for (auto const& file : machine_settings ) {
-        std::cout << file << std::endl;
+
+        FileInfo file_info( file[ "mod_time" ], file[ "path" ], file[ "file_size" ] );
+        std::cout << "FILE: " << file << std::endl;
+        std::cout << "file[ mod_time ] = " << file[ "mod_time" ] << std::endl;
+        std::cout << "file[ path ] = " << file[ "path" ] << std::endl;
+        std::cout << "file[ file_size ] = " << file[ "file_size" ] << std::endl;
+        std::cout << "______________________________________________________________________" << std::endl;
+        prev_files_info_.emplace_back( file_info );
     }
-
-    prev_files_info_.back().setFileParam( machine_settings[ "mod_time" ], machine_settings[ "path" ], machine_settings[ "file_size" ] );
-
-    //
-    if ( machine_settings ) {
-        // FileInfo file_info( dir_entry.path() );
-        // prev_files_info_.emplace_back( file_info );
-    }
-    
-    // prev_files_info_.back().setFileParam( machine_settings[ "mod_time" ], machine_settings[ "path" ], machine_settings[ "file_size" ] );
-
-    // std::cout << "LOAD: " << machine_settings << "\n" << std::endl;
-    // for ( auto const & test : prev_files_info_ ) {
-
-    //     std::cout << test.getModTime() << "\n";
-
-    // }
 }
 
