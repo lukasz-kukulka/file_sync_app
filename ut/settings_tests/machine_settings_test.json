@@ -1,0 +1,22 @@
+{
+    "machine1": {
+        "file1": {   
+            "mod_time": 99999, 
+            "path": "", 
+            "file_size": 1
+        },
+        "file2": {   
+            "mod_time": 4444, 
+            "path": "", 
+            "file_size": 2
+        }
+    },
+    "machine2": {
+        "file2": {   
+            "mod_time": 22, 
+            "path": "", 
+            "file_size": 3
+        }
+    }
+    
+}

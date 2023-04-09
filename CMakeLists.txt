@@ -39,6 +39,11 @@ set(SRC_LIST
 )
 
 set(TEST_LIST
+    src/Machine.cpp
+    src/Synchronizer.cpp
+    src/MachinesSync.cpp
+    src/FileInfo.cpp
+    src/Time.cpp
     ut/FileInfoTests.cpp
     ut/MachinesSyncTests.cpp
     ut/MachineTests.cpp
@@ -52,6 +57,6 @@ target_link_libraries(FilesSync PRIVATE nlohmann_json::nlohmann_json)
 
 # Now simply link against gtest or gtest_main as needed. Eg
 add_executable(${PROJECT_NAME}-gt ${TEST_LIST})
-target_link_libraries(${PROJECT_NAME}-gt gtest_main gmock_main)
+target_link_libraries(${PROJECT_NAME}-gt gtest_main gmock_main nlohmann_json::nlohmann_json)
 enable_testing()
 add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-gt)
