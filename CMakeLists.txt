@@ -12,10 +12,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # include_directories(${PROJECT_SOURCE_DIR}/ut)
 
 include(FetchContent)
-FetchContent_Declare(googletest
+FetchContent_Declare(
+  googletest
   GIT_REPOSITORY https://github.com/google/googletest.git
   GIT_TAG release-1.12.1
-  )
+)
+
+FetchContent_Declare(
+  googlemock
+  GIT_REPOSITORY https://github.com/google/googletest.git
+  GIT_TAG release-1.12.1
+)
+
 FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
 
 FetchContent_MakeAvailable(googletest)
@@ -31,8 +39,13 @@ set(SRC_LIST
 )
 
 set(TEST_LIST
+    src/Machine.cpp
+    src/Synchronizer.cpp
+    src/MachinesSync.cpp
+    src/FileInfo.cpp
+    src/Time.cpp
     ut/FileInfoTests.cpp
-    ut/MachineSyncTests.cpp
+    ut/MachinesSyncTests.cpp
     ut/MachineTests.cpp
     ut/SynchronizerTests.cpp
     ut/TimeTests.cpp
@@ -44,6 +57,6 @@ target_link_libraries(FilesSync PRIVATE nlohmann_json::nlohmann_json)
 
 # Now simply link against gtest or gtest_main as needed. Eg
 add_executable(${PROJECT_NAME}-gt ${TEST_LIST})
-target_link_libraries(${PROJECT_NAME}-gt gtest_main)
+target_link_libraries(${PROJECT_NAME}-gt gtest_main gmock_main nlohmann_json::nlohmann_json)
 enable_testing()
 add_test(NAME ${PROJECT_NAME}-test COMMAND ${PROJECT_NAME}-gt)
