@@ -40,17 +40,19 @@ void Machine::saveMachineFilesInfo( json const& json, fs::directory_entry dir_en
 }
 
 void Machine::loadPreviouslyFilesInfo( json const& json, fs::directory_entry const& dir_entry ) {
-    auto const machine_settings = json.at( dir_entry.path().filename() );
-    std::cout << machine_settings << std::endl;
-    for (auto const& file : machine_settings ) {
+    
+    if ( auto const machine_settings = json.find( dir_entry.path().filename() ); machine_settings != json.end() ) {
+        for (auto const& file : machine_settings.value() ) {
 
         FileInfo file_info( file[ "mod_time" ], file[ "path" ], file[ "file_size" ] );
-        std::cout << "FILE: " << file << std::endl;
-        std::cout << "file[ mod_time ] = " << file[ "mod_time" ] << std::endl;
-        std::cout << "file[ path ] = " << file[ "path" ] << std::endl;
-        std::cout << "file[ file_size ] = " << file[ "file_size" ] << std::endl;
-        std::cout << "______________________________________________________________________" << std::endl;
+        // std::cout << "FILE: " << file << std::endl;
+        // std::cout << "file[ mod_time ] = " << file[ "mod_time" ] << std::endl;
+        // std::cout << "file[ path ] = " << file[ "path" ] << std::endl;
+        // std::cout << "file[ file_size ] = " << file[ "file_size" ] << std::endl;
+        // std::cout << "______________________________________________________________________" << std::endl;
         prev_files_info_.emplace_back( file_info );
+        }
     }
+    
 }
 
