@@ -38,6 +38,7 @@ set(SRC_LIST
     src/Time.cpp
     src/Menu.cpp
     src/ExitApp.cpp
+    src/SettingApp.cpp
 )
 
 set(TEST_LIST
@@ -48,6 +49,7 @@ set(TEST_LIST
     src/Time.cpp
     src/Menu.cpp
     src/ExitApp.cpp
+    src/SettingApp.cpp
     ut/FileInfoTests.cpp
     ut/MachinesSyncTests.cpp
     ut/MachineTests.cpp

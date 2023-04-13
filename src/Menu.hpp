@@ -13,6 +13,8 @@ public:
 private:
     SyncApp::MenuOption switchOption( int const choice );
     void printMenu() const;
+    void printConfirmExit() const;
+    SyncApp::MenuOption exitDecision();
 
     std::string main_path_{};
     std::unique_ptr< Command >command_;

@@ -6,5 +6,5 @@ public:
     ~ExitApp() = default;
     void operator()(std::vector< FileInfo >const& file_info ) override;
 private:
-
+    
 };
