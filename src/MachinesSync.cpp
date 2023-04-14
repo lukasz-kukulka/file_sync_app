@@ -13,12 +13,14 @@ MachinesSync::MachinesSync( std::string const& main_path_ )
     : main_path_( main_path_ )
     , synchronizer_( std::make_unique< Synchronizer >( main_path_, kSettingsDirectory + kDefaultSettingsFileName ) )  
 {
-    machines_path_ = synchronizer_->getMachinePath ();
-    auto dir_entry = fs::directory_iterator{ machines_path_ };    
+    machines_path_ = synchronizer_->getMachinePath();
+    std::cout << machines_path_ << std::endl;
+    //auto dir_entry = fs::directory_iterator{ machines_path_ };    
 }
 
 void MachinesSync::run() {
     machinesInit();
+    makeUniqueSyncFiles();
 }
 
 json MachinesSync::getJsonData( fs::path const& path ) {
@@ -30,19 +32,13 @@ void MachinesSync::machinesInit() {
     // zrobic to na kilku watkach  
     
     fs::path const machine_settings_file_path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
-    auto const init_file_exist = synchronizer_->getDefaultSettingsFromFile().isDeleteSync;
+    auto const is_prev_settings = synchronizer_->getDefaultSettingsFromFile().isPreviouslySetings;
     
     for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
         machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
-        if ( init_file_exist ) {
-            machines_.back()->loadPreviouslyFilesInfo( getJsonData( machine_settings_file_path ), dir_entry );
+        if ( is_prev_settings ) {
+            machines_.back()->loadPreviouslyFilesInfo( getJsonData( machine_settings_file_path ), dir_entry.path().filename() );
         }
-        //std::cout << "dir_entry = " << dir_entry << std::endl;
-    }
-    
-    for (auto const& dir_entry : fs::directory_iterator{ machines_path_ } ) {
-        machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
-        machines_.back()->saveMachineFilesInfo( getJsonData( machine_settings_file_path ), dir_entry );
     }
 }
 

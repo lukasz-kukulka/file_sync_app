@@ -4,11 +4,11 @@
 #include <iostream>
 
 int main() {
-    std::cout << "Before run\n";
+    //std::cout << "Before run" << std::endl;
     Menu menu;
-    menu.runMenu();
+    //menu.runMenu();
     //machineSync.run();
 
-    std::cout << "EXIT\n";
+    //std::cout << "EXIT\n";
     return 0;
 }
