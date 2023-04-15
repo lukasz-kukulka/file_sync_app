@@ -15,6 +15,7 @@ private:
     void printMenu() const;
     void printConfirmExit() const;
     SyncApp::MenuOption exitDecision();
+    int validateAndConvertInput( std::string const& input );
 
     std::string main_path_{};
     std::unique_ptr< Command >command_;

@@ -37,7 +37,14 @@ std::string FileInfo::getAbsolutePath() const {
     return absolute_path_;
 }
 
-uint64_t FileInfo::getFileSize() const
-{
+uint64_t FileInfo::getFileSize() const {
     return file_size_;
+}
+
+std::string FileInfo::getMachineName() const {
+    return machine_name_;
+}
+
+std::string FileInfo::getPath() const {
+    return path_;
 }

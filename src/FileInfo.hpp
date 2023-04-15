@@ -12,13 +12,14 @@ public:
     std::time_t getModTime( ) const;
     std::string getAbsolutePath() const;
     uint64_t getFileSize() const;
-
+    std::string getMachineName() const;
+    std::string getPath() const;
 
 private:
     void setFileTime( fs::directory_entry file );
+    std::string machine_name_{};
     std::string absolute_path_{};
     std::string path_{};
-    std::string machine_name_{};
     std::time_t mod_time_{};
     uint64_t file_size_{};
     
