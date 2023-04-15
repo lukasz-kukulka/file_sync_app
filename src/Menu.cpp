@@ -18,8 +18,7 @@ void Menu::runMenu() {
         std::string choice{};
         printMenu();
         std::getline( std::cin, choice );
-
-        menu_choice = switchOption( choice );
+        menu_choice = switchOption( validateAndConvertInput( choice ) );
     }
 }
 

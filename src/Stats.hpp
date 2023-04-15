@@ -1,5 +1,7 @@
 #pragma once
 
+#include "FileInfo.hpp"
+
 #include <string>
 #include <filesystem>
 
@@ -18,5 +20,7 @@ namespace SyncApp {
         Settings,
         Exit
     };
+
+
 }
 
