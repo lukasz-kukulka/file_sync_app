@@ -30,31 +30,25 @@ FetchContent_MakeAvailable(googletest)
 FetchContent_MakeAvailable(json)
 
 set(SRC_LIST
-    main.cpp
-    src/Machine.cpp
-    src/Synchronizer.cpp
-    src/MachinesSync.cpp
-    src/FileInfo.cpp
-    src/Time.cpp
-    src/Menu.cpp
-    src/ExitApp.cpp
-    src/SettingApp.cpp
+  main.cpp
+  src/Machine.cpp
+  src/Synchronizer.cpp
+  src/MachinesSync.cpp
+  src/FileInfo.cpp
+  src/Time.cpp
+  src/Menu.cpp
+  src/ExitApp.cpp
+  src/SettingApp.cpp
+  src/Stats.cpp
 )
 
 set(TEST_LIST
-    src/Machine.cpp
-    src/Synchronizer.cpp
-    src/MachinesSync.cpp
-    src/FileInfo.cpp
-    src/Time.cpp
-    src/Menu.cpp
-    src/ExitApp.cpp
-    src/SettingApp.cpp
-    ut/FileInfoTests.cpp
-    ut/MachinesSyncTests.cpp
-    ut/MachineTests.cpp
-    ut/SynchronizerTests.cpp
-    ut/TimeTests.cpp
+  ${SRC_LIST}
+  ut/FileInfoTests.cpp
+  ut/MachinesSyncTests.cpp
+  ut/MachineTests.cpp
+  ut/SynchronizerTests.cpp
+  ut/TimeTests.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})

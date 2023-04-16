@@ -2,6 +2,7 @@
 
 #include "FileInfo.hpp"
 
+#include <iostream>
 #include <string>
 #include <filesystem>
 
@@ -21,6 +22,17 @@ namespace SyncApp {
         Exit
     };
 
+    enum class CompareOption {
+        None,
+        Equal,
+        Different,
+        Greater,
+        Less,
+    };
 
-}
+    CompareOption getCompareOption( FileInfo* const lhs, FileInfo* const rhs );
+
+    template<typename... Args>
+    FileInfo* compareFilesInfo( const Args*... args );
+} // namespace SyncApp
 
