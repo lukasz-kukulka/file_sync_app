@@ -30,7 +30,7 @@ namespace SyncApp {
         Less,
     };
 
-    CompareOption getCompareOption( FileInfo* const lhs, FileInfo* const rhs );
+    //CompareOption getCompareOption( FileInfo* const lhs, FileInfo* const rhs );
 
     template<typename... Args>
     FileInfo* compareFilesInfo( const Args*... args );

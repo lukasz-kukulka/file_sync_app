@@ -12,14 +12,14 @@ Machine::Machine( fs::path const& path )
     setExistingFileInfo();
 }
 
-std::vector< std::unique_ptr< fs::directory_entry > > Machine::getAllMachineFiles() {
-    return std::move( files_pointers_ );
-}
+// std::vector< std::unique_ptr< fs::directory_entry > > Machine::getAllMachineFiles() {
+//     return std::move( files_pointers_ );
+// }
 
 void Machine::setExistingFileInfo() {
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
         if ( file.is_regular_file() ) {
-            files_pointers_.push_back( std::make_unique< fs::directory_entry >( file ) );
+            //files_pointers_.push_back( std::make_unique< fs::directory_entry >( file ) );
             std::cout << file << std::endl;
             std::cout << path_ << std::endl;
             std::cout << path_.filename() << std::endl;
@@ -48,6 +48,10 @@ void Machine::saveMachineFilesInfo( json const& json, fs::directory_entry dir_en
     for ( auto const& file : new_files_info_ ) {
         
     }
+}
+
+std::vector< FileInfo > const& Machine::getFileInfo() const {
+    return exist_files_info_;
 }
 
 void Machine::loadPreviouslyFilesInfo( json const& json, std::string const& machine_name ) {

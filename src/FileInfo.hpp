@@ -14,6 +14,8 @@ public:
     uint64_t getFileSize() const;
     std::string getMachineName() const;
     std::string getPath() const;
+    void setIsFileToReplace( bool is_to_replace );
+    bool getIsFileToReplace() const;
 
 private:
     void setFileTime( fs::directory_entry file );
@@ -22,5 +24,6 @@ private:
     std::string path_{};
     std::time_t mod_time_{};
     uint64_t file_size_{};
+    bool is_file_to_replace{};
     
 };
