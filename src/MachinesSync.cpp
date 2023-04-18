@@ -1,6 +1,9 @@
 #include "MachinesSync.hpp"
+
+#include "Stats.hpp"
 #include "Time.hpp"
 #include <iostream>
+#include <iterator>
 #include <ranges>
 #include <algorithm>
 
@@ -52,13 +55,24 @@ void MachinesSync::machinesInit() {
 void MachinesSync::makeUniqueSyncFiles() {
     for ( auto const & machine : machines_ ) {
         for ( auto const & file : machine->getFileInfo() ) {
-            if ( auto const exist_file = unique_machine_files_info_.find( file.getPath() ) ) {
-                auto const new_file_info = SyncApp::compareFilesInfo( file, exist_file );
-                unique_machine_files_info_.insert_or_assign( new_file_info.getPath(), new_file_info.getMachineName() )
-            } else {
-                unique_machine_files_info_.insert( file.getPath(), file.getMachineName() )
-            }
+            compareAndAddFileInfo( file );
         }
+    }
+    // std::cout << "____________________________________________________________" << std::endl;
+    // for ( auto const & file_info : unique_machine_files_info_ ) {
+    //     std::cout << file_info.second.getPath() << std::endl;
+    // }
+}
+
+void MachinesSync::compareAndAddFileInfo(FileInfo const& file ) {
+    if ( auto const exist_file = unique_machine_files_info_.find( file.getPath() ); exist_file != unique_machine_files_info_.end() ) {
+        auto const new_file_info = SyncApp::compareFilesInfo( file, exist_file->second );
+        if ( new_file_info.has_value() ) {
+            unique_machine_files_info_.insert_or_assign( new_file_info.value().getPath(), new_file_info.value() );
+        }
+            
+    } else {
+        unique_machine_files_info_.insert( { file.getPath(), file } );
     }
 }
 
@@ -73,4 +87,3 @@ void MachinesSync::changeFileIfIsOlder() {
     //     }
     // }
 }
-
