@@ -12,6 +12,10 @@ FileInfo::FileInfo( fs::directory_entry const& file, std::string const& path, st
     std::cout << "AP: " << absolute_path_ << ", P: " << path_ << ", MN: " << machine_name << ", FS: " << file_size_ << ", FT: " << mod_time_ << std::endl;
 }
 
+FileInfo::FileInfo()
+{}
+
+
 // FileInfo::FileInfo( uint64_t const& mod_time, std::string const& path, uint64_t const& file_size )
 //     : path_( path )
 //     , mod_time_( mod_time )
@@ -47,4 +51,12 @@ std::string FileInfo::getMachineName() const {
 
 std::string FileInfo::getPath() const {
     return path_;
+}
+
+void FileInfo::setIsFileToReplace( bool is_to_replace ) {
+    is_file_to_replace_ = is_to_replace;
+}
+
+bool FileInfo::getIsFileToReplace() const {
+    return is_file_to_replace_;
 }

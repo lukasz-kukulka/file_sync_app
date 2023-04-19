@@ -22,7 +22,8 @@ private:
     void machinesFilesInit();
     void pathMachinesInit();
     void makeUniqueSyncFiles();
-    void compareAndAddFileInfo( FileInfo const& file_info );
+    void compareAndAddFileInfo( FileInfo& file_info );
+    //void setIfIsToReplace( FileInfo const& file_info );
     void changeFileIfIsOlder();
     
 
