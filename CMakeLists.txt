@@ -49,6 +49,7 @@ set(TEST_LIST
   ut/MachineTests.cpp
   ut/SynchronizerTests.cpp
   ut/TimeTests.cpp
+  ut/StatsTests.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})

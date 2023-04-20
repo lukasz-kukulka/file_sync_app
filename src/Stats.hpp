@@ -65,19 +65,23 @@ namespace SyncApp {
             switch ( compare_result ) {
                 case CompareOption::Different :
                 case CompareOption::Equal :
-                    return nullptr;
+                    newest_file = nullptr;
+                    break;
                 case CompareOption::Greater :
                     info->setIsFileToReplace( true );
-                    return newest_file;
+                    newest_file = newest_file;
+                    break;
                 case CompareOption::Less :
                     newest_file->setIsFileToReplace( true );
-                    return info;
+                    newest_file = info;
+                    break;
                 default:    
                     std::cout << "ERROR WRONG VALUE IN COMPARE FUNCTION\n"; 
-                    return nullptr;
+                    newest_file = nullptr;
+                    break;
             }
         }
-        return nullptr;
+        return newest_file;
     }
 } // namespace SyncApp
 

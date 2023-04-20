@@ -47,7 +47,7 @@ void MachinesSync::machinesInit() {
     for (auto const& dir_entry : directories ) {
         machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
         if ( is_prev_settings ) {
-            machines_.back()->loadPreviouslyFilesInfo( getJsonData( machine_settings_file_path ), dir_entry.path().filename() );
+            //machines_.back()->loadPreviouslyFilesInfo( getJsonData( machine_settings_file_path ), dir_entry.path().filename() );
         }
     }
 }
@@ -56,12 +56,13 @@ void MachinesSync::makeUniqueSyncFiles() {
     for ( auto & machine : machines_ ) {
         for ( auto & file : machine->getFileInfo() ) {
             compareAndAddFileInfo( file );
+            //std::cout <<  file.getAbsolutePath() << "___________________"<<  file.getModTime() <<"______________" << std::endl;
         }
     }
-    std::cout << "____________________________________________________________" << std::endl;
-    for ( auto const & file_info : unique_machine_files_info_ ) {
-        std::cout << file_info.second.getPath() << std::endl;
-    }
+    // std::cout << "____________________________________________________________" << std::endl;
+    // for ( auto const & file_info : unique_machine_files_info_ ) {
+    //     std::cout << file_info.second.getMachineName() << "_______" << file_info.second.getPath() << std::endl;
+    // }
 }
 
 void MachinesSync::compareAndAddFileInfo(FileInfo& file ) {
@@ -69,7 +70,6 @@ void MachinesSync::compareAndAddFileInfo(FileInfo& file ) {
         auto new_file_info = SyncApp::compareFilesInfo( &file, &exist_file->second );
         if ( new_file_info ) {
             unique_machine_files_info_.insert_or_assign( new_file_info->getPath(), *new_file_info );
-            
         }
     } else {
         unique_machine_files_info_.insert( { file.getPath(), file } );
