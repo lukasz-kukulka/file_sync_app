@@ -3,13 +3,16 @@
 #include <iostream>
 
 FileInfo::FileInfo( fs::directory_entry const& file, std::string const& path, std::string const& machine_name )
-    : absolute_path_( file.path() )
-    , path_( path )
-    , machine_name_( machine_name )
-    , file_size_( file.file_size() )
 {
+    if ( not file.is_regular_file() ) {
+        throw std::invalid_argument( "Directory entry is not regular file" );
+    } 
+    absolute_path_ = file.path();
+    path_ = path;
+    machine_name_ = machine_name;
+    file_size_ = file.file_size();
     setFileTime( file );
-    std::cout << "AP: " << absolute_path_ << ", P: " << path_ << ", MN: " << machine_name << ", FS: " << file_size_ << ", FT: " << mod_time_ << std::endl;
+    //std::cout << "AP: " << absolute_path_ << ", P: " << path_ << ", MN: " << machine_name << ", FS: " << file_size_ << ", FT: " << mod_time_ << std::endl;
 }
 
 FileInfo::FileInfo()

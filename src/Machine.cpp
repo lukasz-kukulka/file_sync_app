@@ -20,9 +20,9 @@ void Machine::setExistingFileInfo() {
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
         if ( file.is_regular_file() ) {
             //files_pointers_.push_back( std::make_unique< fs::directory_entry >( file ) );
-            std::cout << file << std::endl;
-            std::cout << path_ << std::endl;
-            std::cout << path_.filename() << std::endl;
+            // std::cout << file << std::endl;
+            // std::cout << path_ << std::endl;
+            // std::cout << path_.filename() << std::endl;
             
             auto const file_path = getPathToFile( file, path_);
             exist_files_info_.emplace_back( file, file_path, path_.filename() );
