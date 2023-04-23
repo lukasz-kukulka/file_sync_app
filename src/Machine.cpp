@@ -50,6 +50,10 @@ void Machine::saveMachineFilesInfo( json const& json, fs::directory_entry dir_en
     }
 }
 
+std::string Machine::getMachineName() const {
+    return machine_name_;
+}
+
 std::vector< FileInfo >& Machine::getFileInfo() {
     return exist_files_info_;
 }

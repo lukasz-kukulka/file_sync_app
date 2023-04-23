@@ -17,6 +17,7 @@ public:
     std::string getPath() const;
     void setIsFileToReplace( bool is_to_replace );
     bool getIsFileToReplace() const;
+    void replaceAllFileInfo( FileInfo const& new_info );
 
 private:
     void setFileTime( fs::directory_entry file );

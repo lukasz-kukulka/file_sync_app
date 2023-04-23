@@ -23,8 +23,9 @@ private:
     void pathMachinesInit();
     void makeUniqueSyncFiles();
     void compareAndAddFileInfo( FileInfo& file_info );
-    //void setIfIsToReplace( FileInfo const& file_info );
-    void changeFileIfIsOlder();
+    void changeFilesIfIsOlder();
+    void replaceSingleFile( FileInfo& old_file, FileInfo& new_file );
+    void addNewFilesIfDontExist( std::string const& existing_file_path, std::string const& path_to_copy );
     
 
     std::string main_path_{};

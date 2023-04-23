@@ -6,6 +6,7 @@
 #include <iterator>
 #include <ranges>
 #include <algorithm>
+#include <set>
 
 namespace {
     const std::string kSettingsDirectory = "/settings";
@@ -26,6 +27,10 @@ void MachinesSync::run() {
     machinesInit();
     makeUniqueSyncFiles();
     changeFileIfIsOlder();
+    // std::cout << "____________________________________________________________" << std::endl;
+    // for ( auto const & file_info : unique_machine_files_info_ ) {
+    //     std::cout << file_info.second.getMachineName() << "_______" << file_info.second.getPath() << "    " << file_info.second.getAbsolutePath() << std::endl;
+    // }
 }
 
 void MachinesSync::prepareForMachineSync() {
@@ -39,9 +44,6 @@ json MachinesSync::getJsonData( fs::path const& path ) {
 }
 
 void MachinesSync::machinesInit() {
-    // zrobic to na kilku watkach  
-    
-    //fs::path const machine_settings_file_path = main_path_ + kSettingsDirectory + synchronizer_->getDefaultSettingsFromFile().machineSettingsFile;
     auto const is_prev_settings = synchronizer_->getDefaultSettingsFromFile().isPreviouslySetings;
     auto const directories = fs::directory_iterator{ machines_path_ };
     for (auto const& dir_entry : directories ) {
@@ -56,19 +58,18 @@ void MachinesSync::makeUniqueSyncFiles() {
     for ( auto & machine : machines_ ) {
         for ( auto & file : machine->getFileInfo() ) {
             compareAndAddFileInfo( file );
-            //std::cout <<  file.getAbsolutePath() << "___________________"<<  file.getModTime() <<"______________" << std::endl;
         }
     }
     // std::cout << "____________________________________________________________" << std::endl;
     // for ( auto const & file_info : unique_machine_files_info_ ) {
-    //     std::cout << file_info.second.getMachineName() << "_______" << file_info.second.getPath() << std::endl;
+    //     std::cout << file_info.second.getMachineName() << "_______" << file_info.second.getPath() << "    " << file_info.second.getAbsolutePath() << std::endl;
     // }
 }
 
-void MachinesSync::compareAndAddFileInfo(FileInfo& file ) {
+void MachinesSync::compareAndAddFileInfo( FileInfo& file ) {
     if ( auto exist_file = unique_machine_files_info_.find( file.getPath() ); exist_file != unique_machine_files_info_.end() ) {
         auto new_file_info = SyncApp::compareFilesInfo( &file, &exist_file->second );
-        if ( new_file_info ) {
+        if ( new_file_info && ( exist_file->second.getModTime() != new_file_info->getModTime() ) ) {
             unique_machine_files_info_.insert_or_assign( new_file_info->getPath(), *new_file_info );
         }
     } else {
@@ -76,19 +77,32 @@ void MachinesSync::compareAndAddFileInfo(FileInfo& file ) {
     }
 }
 
-// void MachinesSync::setIfIsToReplace( FileInfo const& file_info ) {
-//     auto const new_file_info = unique_machine_files_info_.contains( file.getPath() );
-//     if ( new_file_info )
-// }
+void MachinesSync::changeFilesIfIsOlder() {
+    for ( auto & machine : machines_ ) {
+        std::set< std::string > all_file_path_to_replace ( unique_machine_files_info_.size() );
+        std::ranges::copy( unique_machine_files_info_, std::inserter( all_file_path_to_replace ), [ ]( auto file ){ file.getPath() } );
+        for ( auto & file : machine->getFileInfo() ) {
+            if ( file.getIsFileToReplace() ) {
+                auto new_file = unique_machine_files_info_[ file.getPath() ];
+                replaceSingeFile( file, new_file );
+                file.replaceAllFileInfo( new_file );
+                all_file_path_to_replace.erase( new_file.getPath() );
+            }
+        }
+        addNewFilesIfDontExist( all_file_path_to_replace, machines_path_ + machine->getMachineName() )
+    }
+}
 
-void MachinesSync::changeFileIfIsOlder() {
-    // auto file_if_match = [ this ]( auto element ){ 
-    //     return std::ranges::find( unique_machine_files_, element ); 
-    // }; 
+void MachinesSync::replaceSingleFile(FileInfo& old_file, FileInfo& new_file) {
+    std::filesystem::path old_file_path( old_file.getAbsolutePath() );
+    std::filesystem::path new_file_path( new_file.getAbsolutePath() );
+    std::filesystem::copy_file( old_file_path, new_file_path, std::filesystem::copy_options::overwrite_existing );
+}
 
-    // for ( auto const & file : unique_machine_files_ ) {
-    //     for( auto const & machine : machines_ ) {
-           
-    //     }
-    // }
+void MachinesSync::addNewFilesIfDontExist( std::set< std::string >const& existing_file_paths, std::string const& path_to_copy ) {
+    for( auto const& path : existing_file_paths ) {
+        std::filesystem::path existing_file( path );
+        std::filesystem::path new_path( path_to_copy );
+        std::filesystem::copy_file( path_to_copy, existing_file );
+    }
 }

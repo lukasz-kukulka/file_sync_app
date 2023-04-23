@@ -64,3 +64,12 @@ void FileInfo::setIsFileToReplace( bool is_to_replace ) {
 bool FileInfo::getIsFileToReplace() const {
     return is_file_to_replace_;
 }
+
+void FileInfo::replaceAllFileInfo(FileInfo const& new_info) {
+    machine_name_ = new_info.getMachineName();
+    absolute_path_ = new_info.getAbsolutePath();
+    path_ = new_info.getPath();
+    mod_time_ = new_info.getModTime();
+    file_size_ = new_info.getFileSize();
+    setIsFileToReplace( false );
+}
