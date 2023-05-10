@@ -18,18 +18,17 @@ MachinesSync::MachinesSync( std::string const& main_path_ )
 {
     machines_path_ = synchronizer_->getMachinePath();
     std::cout << machines_path_ << std::endl;
-    //auto dir_entry = fs::directory_iterator{ machines_path_ };    
+    //auto dir_entry = fs::directory_iterator{ machines_path_ }; 
+}
+
+void MachinesSync::operator()(std::vector< FileInfo >const& file_info) {
+    run();
 }
 
 void MachinesSync::run() {
     prepareForMachineSync();
     machinesInit();
     makeUniqueSyncFiles();
-    //changeFilesIfIsOlder();
-    // std::cout << "____________________________________________________________" << std::endl;
-    // for ( auto const & file_info : unique_machine_files_info_ ) {
-    //     std::cout << file_info.second.getMachineName() << "_______" << file_info.second.getPath() << "    " << file_info.second.getAbsolutePath() << std::endl;
-    // }
 }
 
 void MachinesSync::prepareForMachineSync() {

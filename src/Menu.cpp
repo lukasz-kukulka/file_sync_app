@@ -7,9 +7,9 @@
 
 Menu::Menu() {
     std::string main_path_ = fs::current_path().parent_path();
-    std::cout << main_path_ << std::endl;
-    MachinesSync machineSync{ main_path_ };
-    machineSync.run();
+    //std::cout << main_path_ << std::endl;
+    //MachinesSync machineSync{ main_path_ };
+    //machineSync.run();
 }
 
 void Menu::runMenu() {
@@ -27,8 +27,8 @@ SyncApp::MenuOption Menu::switchOption( int const choice ) {
     auto menu_choice = SyncApp::MenuOption::None;
     switch ( static_cast< SyncApp::MenuOption > ( choice ) ) {   
         case SyncApp::MenuOption::SyncMachines :
-
             menu_choice = SyncApp::MenuOption::SyncMachines;
+            command_ = std::make_unique< MachinesSync >( main_path_ );
             break;
         case SyncApp::MenuOption::Settings :
             command_ = std::make_unique< SettingApp >();

@@ -1,5 +1,6 @@
 #pragma once
 #include "Machine.hpp"
+#include "Command.hpp"
 #include "Synchronizer.hpp"
 #include "nlohmann/json.hpp"
 
@@ -12,12 +13,14 @@
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 
-class MachinesSync {
+class MachinesSync : public Command {
 public:
     MachinesSync( std::string const& main_path_ );
-
-    void run();
+    ~MachinesSync() = default;
+    void operator()(std::vector< FileInfo >const& file_info ) override;
+    
 private:
+    void run();
     void prepareForMachineSync();
     json getJsonData( fs::path const& path );
     void machinesInit();

@@ -1,3 +1,9 @@
+## Required:
+## Build:
+## How to run project:
+
+
+
 ## Część1: 
  Stwórz program, który będzie synchronizował pliki pomiędzy różnymi maszynami. My zrobimy to pomiędzy folderami. Każdy folder może sie zmienić (dodać, zmodyfikować usunąć) plik. Naszym zadaniem jest zsynchronizowanie tego i spropagowanie wszystkich zmian do pozostałych folderów, tak by każdy folder zawsze miał te same dane. 
 
