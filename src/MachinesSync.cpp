@@ -16,9 +16,8 @@ MachinesSync::MachinesSync( std::string const& main_path_ )
     : main_path_( main_path_ )
     , synchronizer_( std::make_unique< Synchronizer >( main_path_, kSettingsDirectory + kDefaultSettingsFileName ) )  
 {
+    std::cout << "---------------test2" << std::endl;
     machines_path_ = synchronizer_->getMachinePath();
-    std::cout << machines_path_ << std::endl;
-    //auto dir_entry = fs::directory_iterator{ machines_path_ }; 
 }
 
 void MachinesSync::operator()(std::vector< FileInfo >const& file_info) {
@@ -58,10 +57,6 @@ void MachinesSync::makeUniqueSyncFiles() {
             compareAndAddFileInfo( file );
         }
     }
-    // std::cout << "____________________________________________________________" << std::endl;
-    // for ( auto const & file_info : unique_machine_files_info_ ) {
-    //     std::cout << file_info.second.getMachineName() << "_______" << file_info.second.getPath() << "    " << file_info.second.getAbsolutePath() << std::endl;
-    // }
 }
 
 void MachinesSync::compareAndAddFileInfo( FileInfo& file ) {

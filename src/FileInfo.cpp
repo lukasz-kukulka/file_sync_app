@@ -7,7 +7,7 @@ FileInfo::FileInfo( fs::directory_entry const& file, std::string const& path, st
     if ( not file.is_regular_file() ) {
         throw std::invalid_argument( "Directory entry is not regular file" );
     } 
-    absolute_path_ = file.path();
+    absolute_path_ = file.path().string();
     path_ = path;
     machine_name_ = machine_name;
     file_size_ = file.file_size();

@@ -7,7 +7,7 @@
 
 namespace fs = std::filesystem;
 
-std::string const kMachinePath = static_cast< std::string > ( fs::current_path().parent_path() ) + "/ut/MachinesTest";
+std::string const kMachinePath = static_cast< std::string > ( fs::current_path().parent_path().string() ) + "/ut/MachinesTest";
 fs::directory_entry const kDirEntry( kMachinePath );
 
 void createTestFile( std::string const& file_name, std::string const& file_content ) {
