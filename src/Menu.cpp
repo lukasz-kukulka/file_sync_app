@@ -6,7 +6,7 @@
 #include <iostream>
 
 Menu::Menu() {
-    std::string main_path_ = fs::current_path().parent_path().string();
+    main_path_ = fs::current_path().parent_path().string();
     //std::cout << main_path_ << std::endl;
     //MachinesSync machineSync{ main_path_ };
     //machineSync.run();

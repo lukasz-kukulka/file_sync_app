@@ -54,6 +54,11 @@ add_executable(${PROJECT_NAME} ${SRC_LIST} main.cpp )
 target_link_libraries(FilesSync PRIVATE nlohmann_json::nlohmann_json)
 # target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Werror -Wpedantic -Wextra -O3)
 
+add_executable(${PROJECT_NAME}-debug ${SRC_LIST} main.cpp)
+target_link_libraries(FilesSync-debug PRIVATE nlohmann_json::nlohmann_json)
+target_compile_options(${PROJECT_NAME}-debug PUBLIC -O0 -g )
+
+
 # Now simply link against gtest or gtest_main as needed. Eg
 add_executable(${PROJECT_NAME}-gt ${TEST_LIST})
 target_link_libraries(${PROJECT_NAME}-gt gtest_main gmock_main nlohmann_json::nlohmann_json)
