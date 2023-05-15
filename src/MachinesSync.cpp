@@ -6,7 +6,6 @@
 #include <iterator>
 #include <ranges>
 #include <algorithm>
-#include <set>
 
 namespace {
     const std::string kSettingsDirectory = "/settings";
@@ -19,18 +18,17 @@ MachinesSync::MachinesSync( std::string const& main_path_ )
 {
     machines_path_ = synchronizer_->getMachinePath();
     std::cout << machines_path_ << std::endl;
-    //auto dir_entry = fs::directory_iterator{ machines_path_ };    
+    //auto dir_entry = fs::directory_iterator{ machines_path_ }; 
+}
+
+void MachinesSync::operator()(std::vector< FileInfo >const& file_info) {
+    run();
 }
 
 void MachinesSync::run() {
     prepareForMachineSync();
     machinesInit();
     makeUniqueSyncFiles();
-    changeFileIfIsOlder();
-    // std::cout << "____________________________________________________________" << std::endl;
-    // for ( auto const & file_info : unique_machine_files_info_ ) {
-    //     std::cout << file_info.second.getMachineName() << "_______" << file_info.second.getPath() << "    " << file_info.second.getAbsolutePath() << std::endl;
-    // }
 }
 
 void MachinesSync::prepareForMachineSync() {
@@ -79,17 +77,21 @@ void MachinesSync::compareAndAddFileInfo( FileInfo& file ) {
 
 void MachinesSync::changeFilesIfIsOlder() {
     for ( auto & machine : machines_ ) {
-        std::set< std::string > all_file_path_to_replace ( unique_machine_files_info_.size() );
-        std::ranges::copy( unique_machine_files_info_, std::inserter( all_file_path_to_replace ), [ ]( auto file ){ file.getPath() } );
+        std::set< std::string > all_file_path_to_replace;
+        std::transform( unique_machine_files_info_.begin(), 
+                        unique_machine_files_info_.end(), 
+                        std::inserter( all_file_path_to_replace, all_file_path_to_replace.end() ),
+                        []( auto file ){ return file.second.getPath(); } );
+        //std::ranges::copy( unique_machine_files_info_, std::inserter( all_file_path_to_replace, all_file_path_to_replace.begin() ), [ ]( auto file ){ return file.getPath(); } );
         for ( auto & file : machine->getFileInfo() ) {
             if ( file.getIsFileToReplace() ) {
                 auto new_file = unique_machine_files_info_[ file.getPath() ];
-                replaceSingeFile( file, new_file );
+                replaceSingleFile( file, new_file );
                 file.replaceAllFileInfo( new_file );
                 all_file_path_to_replace.erase( new_file.getPath() );
             }
         }
-        addNewFilesIfDontExist( all_file_path_to_replace, machines_path_ + machine->getMachineName() )
+        addNewFilesIfDontExist( all_file_path_to_replace, machines_path_ + machine->getMachineName() );
     }
 }
 

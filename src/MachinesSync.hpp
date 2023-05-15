@@ -1,21 +1,26 @@
 #pragma once
 #include "Machine.hpp"
+#include "Command.hpp"
 #include "Synchronizer.hpp"
 #include "nlohmann/json.hpp"
 
 #include <filesystem>
 #include <memory>
 #include <vector>
+#include <map>
+#include <set>
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 
-class MachinesSync {
+class MachinesSync : public Command {
 public:
     MachinesSync( std::string const& main_path_ );
-
-    void run();
+    ~MachinesSync() = default;
+    void operator()(std::vector< FileInfo >const& file_info ) override;
+    
 private:
+    void run();
     void prepareForMachineSync();
     json getJsonData( fs::path const& path );
     void machinesInit();
@@ -25,7 +30,7 @@ private:
     void compareAndAddFileInfo( FileInfo& file_info );
     void changeFilesIfIsOlder();
     void replaceSingleFile( FileInfo& old_file, FileInfo& new_file );
-    void addNewFilesIfDontExist( std::string const& existing_file_path, std::string const& path_to_copy );
+    void addNewFilesIfDontExist( std::set< std::string >const& existing_file_paths, std::string const& path_to_copy );
     
 
     std::string main_path_{};
