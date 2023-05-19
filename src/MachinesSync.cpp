@@ -55,7 +55,7 @@ void MachinesSync::makeUniqueSyncFiles() {
     for ( auto & machine : machines_ ) {
         for ( auto & file : machine->getFileInfo() ) {
             compareAndAddFileInfo( file.second );
-            //std::cout << "PATH = " << file.getAbsolutePath() << "   |    " << std::boolalpha << file.getIsFileToReplace() << std::endl;
+            std::cout << "PATH = " << file.second.getAbsolutePath() << "   |    " << std::boolalpha << file.second.getIsFileToReplace() << std::endl;
         }
         //std::cout << std::endl;
     }
@@ -74,16 +74,21 @@ void MachinesSync::compareAndAddFileInfo( FileInfo& file ) {
     } else {
         unique_machine_files_info_.insert( { file.getPath(), file } );
     }
+    //dodac ze nie jest do wymiany
 }
 
 void MachinesSync::changeFilesIfIsOlder() {
-    // for (auto const & unique : unique_machine_files_info_ )
     for ( auto & machine : machines_ ) {
-        for ( auto const & info : machine->getFileInfo() ) { 
-            // if ( info.getIsFileToReplace() ) {
-
+        for ( auto const & info : unique_machine_files_info_ ) { 
+            auto const exist_file = machine->getFileInfo().find( info.first ); 
+            // if ( not exist_file->second.getIsFileToReplace() ) {
+            //     std::cout << "---------------------" << info.second.getAbsolutePath() << std::endl;
+            // }
+            // if ( ( exist_file != machine->getFileInfo().end() && exist_file->second.getIsFileToReplace() ) || exist_file == machine->getFileInfo().end() ) {
+            //     std::cout << "---------------------" << info.second.getAbsolutePath() << std::endl;
             // }
         }
+        std::cout << std::endl; 
     }
 }
 

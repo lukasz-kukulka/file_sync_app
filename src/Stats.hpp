@@ -54,7 +54,6 @@ namespace SyncApp {
                     newest_file = info;
                     break;
                 case CompareOption::Equal :
-                    newest_file->setIsFileToReplace( false );
                     newest_file = info;
                     break;
                 case CompareOption::Greater :

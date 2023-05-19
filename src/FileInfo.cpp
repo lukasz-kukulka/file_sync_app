@@ -73,3 +73,11 @@ void FileInfo::replaceAllFileInfo(FileInfo const& new_info) {
     file_size_ = new_info.getFileSize();
     setIsFileToReplace( new_info.getIsFileToReplace() );
 }
+
+void FileInfo::setPtrForMachineFileInfo(FileInfo* ptr) {
+    ptr_to_file_info_in_machine_ = ptr;
+}
+
+FileInfo* FileInfo::getPtrForMachineFileInfo() const {
+    return ptr_to_file_info_in_machine_;
+}
