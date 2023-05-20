@@ -7,12 +7,10 @@
 
 Menu::Menu() {
     main_path_ = fs::current_path().parent_path().string();
-    //std::cout << main_path_ << std::endl;
-    //MachinesSync machineSync{ main_path_ };
-    //machineSync.run();
 }
 
 void Menu::runMenu() {
+    //SyncApp::systemInfoInit();
     auto menu_choice = SyncApp::MenuOption::None;
     while ( menu_choice != SyncApp::MenuOption::Exit ) {
         std::string choice{};
@@ -28,9 +26,7 @@ SyncApp::MenuOption Menu::switchOption( int const choice ) {
     switch ( static_cast< SyncApp::MenuOption > ( choice ) ) {   
         case SyncApp::MenuOption::SyncMachines :
             menu_choice = SyncApp::MenuOption::SyncMachines;
-            std::cout << "---------------test" << std::endl;
             command_ = std::make_unique< MachinesSync >( main_path_ );
-            
             break;
         case SyncApp::MenuOption::Settings :
             command_ = std::make_unique< SettingApp >();

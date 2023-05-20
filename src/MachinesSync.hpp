@@ -15,7 +15,7 @@ using json = nlohmann::json;
 
 class MachinesSync : public Command {
 public:
-    MachinesSync( std::string const& main_path_ );
+    MachinesSync( std::string const& main_path );
     ~MachinesSync() = default;
     void operator()(std::vector< FileInfo >const& file_info ) override;
     

@@ -19,6 +19,6 @@ namespace SyncApp {
         return CompareOption::None;
     }
 
-
+    
 
 } // namespace SyncApp

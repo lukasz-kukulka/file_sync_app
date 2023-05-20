@@ -7,7 +7,17 @@
 #include <filesystem>
 #include <optional>
 
+
+
 namespace SyncApp {
+    constexpr const char systemInfoInit() {
+        #ifdef _WIN32
+            return '\\';
+        #else
+            return '/';
+        #endif
+    }
+    constexpr const char kFilePathSeparator = systemInfoInit();
     struct DefaultSettingsInfo {
         std::string machineDirectory{};
         bool isPreviouslySetings{};
