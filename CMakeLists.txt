@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
 project(FilesSync LANGUAGES CXX)
-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -54,6 +53,11 @@ set(TEST_LIST
 add_executable(${PROJECT_NAME} ${SRC_LIST} main.cpp )
 target_link_libraries(FilesSync PRIVATE nlohmann_json::nlohmann_json)
 # target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Werror -Wpedantic -Wextra -O3)
+
+add_executable(${PROJECT_NAME}-debug ${SRC_LIST} main.cpp)
+target_link_libraries(FilesSync-debug PRIVATE nlohmann_json::nlohmann_json)
+target_compile_options(${PROJECT_NAME}-debug PUBLIC -O0 -g )
+
 
 # Now simply link against gtest or gtest_main as needed. Eg
 add_executable(${PROJECT_NAME}-gt ${TEST_LIST})
