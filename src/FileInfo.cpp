@@ -61,8 +61,16 @@ void FileInfo::setIsFileToReplace( bool is_to_replace ) {
     is_file_to_replace_ = is_to_replace;
 }
 
+void FileInfo::setFileIsUnique(bool is_unique ) {
+    is_unique_file = is_unique;
+}
+
 bool FileInfo::getIsFileToReplace() const {
     return is_file_to_replace_;
+}
+
+bool FileInfo::getFileIsUnique() const {
+    return is_unique_file;
 }
 
 void FileInfo::replaceAllFileInfo(FileInfo const& new_info) {
@@ -71,5 +79,6 @@ void FileInfo::replaceAllFileInfo(FileInfo const& new_info) {
     path_ = new_info.getPath();
     mod_time_ = new_info.getModTime();
     file_size_ = new_info.getFileSize();
-    setIsFileToReplace( false );
+    is_unique_file = new_info.getFileIsUnique();
+    setIsFileToReplace( new_info.getIsFileToReplace() );
 }

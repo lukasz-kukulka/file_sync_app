@@ -78,6 +78,13 @@ void MachinesSync::compareAndAddFileInfo( FileInfo& file ) {
 void MachinesSync::changeFilesIfIsOlder() {
     for (auto const & unique : unique_machine_files_info_ ) {
         for ( auto & machine : machines_ ) {
+            //TEST
+            for ( auto const & info : machine->getFileInfo() ) {
+                if ( info.getIsFileToReplace() ) {
+                    std::cout << "INFO " << info.getAbsolutePath() << std::endl;
+                }
+
+            }
             auto const file_full_path = machines_path_ + SyncApp::kFilePathSeparator + machine->getMachineName() + unique.second.getPath();
             
             auto const find_condition = [ unique ]( FileInfo file_info ){ 
@@ -95,6 +102,7 @@ void MachinesSync::changeFilesIfIsOlder() {
             }
             
         }
+        std::cout << "INFO \n\n\n\n" << std::endl;
     }
     for ( auto & machine : machines_ ) {
         std::set< std::string > all_file_path_to_replace;

@@ -1,7 +1,10 @@
 #include "Stats.hpp"
 namespace SyncApp {
     CompareOption getCompareOption( FileInfo* lhs, FileInfo* rhs ) {
-        if( ( not lhs ) || ( lhs->getPath() != rhs->getPath() ) ) {
+        if ( not lhs || not rhs ) {
+            return CompareOption::Unique;
+        }
+        if( ( lhs->getPath() != rhs->getPath() ) ) {
             return CompareOption::Different;
         }
         if ( lhs->getAbsolutePath() == rhs->getAbsolutePath() ) {

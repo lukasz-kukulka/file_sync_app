@@ -39,6 +39,7 @@ namespace SyncApp {
         Different,
         Greater,
         Less,
+        Unique
     };
 
     CompareOption getCompareOption( FileInfo* lhs, FileInfo* rhs );
@@ -50,15 +51,23 @@ namespace SyncApp {
             auto const compare_result = getCompareOption( newest_file, info );
             switch ( compare_result ) {
                 case CompareOption::Different :
+                    newest_file = info;
+                    break;
                 case CompareOption::Equal :
+                    newest_file->setIsFileToReplace( false );
                     newest_file = info;
                     break;
                 case CompareOption::Greater :
-                    info->setIsFileToReplace( true );
+                    // std::cout << "GREATER " << info->getAbsolutePath() << std::endl; 
+                    // info->setIsFileToReplace( true );
                     break;
                 case CompareOption::Less :
-                    newest_file->setIsFileToReplace( true );
+                    // std::cout << "LESS " << info->getAbsolutePath() << std::endl; 
+                    // newest_file->setIsFileToReplace( true );
                     newest_file = info;
+                    break;
+                case CompareOption::Unique :
+                    newest_file = nullptr;
                     break;
                 default:    
                     std::cerr << "ERROR WRONG VALUE IN COMPARE FUNCTION\n" << std::endl; 
