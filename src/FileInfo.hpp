@@ -28,6 +28,6 @@ private:
     std::string path_{};
     std::time_t mod_time_{};
     uint64_t file_size_{};
-    bool is_file_to_replace_{ true };
+    bool is_file_to_replace_{};
     //FileInfo* ptr_to_file_info_in_machine_{};
 };
