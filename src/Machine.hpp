@@ -14,8 +14,6 @@ namespace fs = std::filesystem;
 class Machine {
 public:
     Machine( fs::path const& path );
-    //std::vector< std::unique_ptr< fs::directory_entry > > getAllMachineFiles();
-    void loadPreviouslyFilesInfo( json const& json, std::string const& machine_name );
     void saveMachineFilesInfo( json const& json, fs::directory_entry dir_entry );
     std::map< std::string, FileInfo >& getFileInfo();
     std::string getMachineName() const;

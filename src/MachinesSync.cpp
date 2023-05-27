@@ -41,13 +41,9 @@ json MachinesSync::getJsonData( fs::path const& path ) {
 }
 
 void MachinesSync::machinesInit() {
-    auto const is_prev_settings = synchronizer_->getDefaultSettingsFromFile().isPreviouslySetings;
     auto const directories = fs::directory_iterator{ machines_path_ };
     for (auto const& dir_entry : directories ) {
         machines_.push_back( std::make_unique< Machine > ( dir_entry.path() ) );
-        if ( is_prev_settings ) {
-            //machines_.back()->loadPreviouslyFilesInfo( getJsonData( machine_settings_file_path ), dir_entry.path().filename() );
-        }
     }
 }
 

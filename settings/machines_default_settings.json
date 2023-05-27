@@ -1,6 +1,5 @@
 {
     "machine_directory": "\\Machines",
-    "is_prev_settings": true,
     "sync_time": 100,
     "machine_settings_file": "\\machine_settings.json",
     "last_sync_date": 0

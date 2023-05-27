@@ -56,13 +56,3 @@ std::string Machine::getMachinePatch() const {
 std::map< std::string, FileInfo >& Machine::getFileInfo() {
     return exist_files_info_;
 }
-
-void Machine::loadPreviouslyFilesInfo( json const& json, std::string const& machine_name ) {
-    if ( auto const machine_settings = json.find( machine_name ); machine_settings != json.end() ) {
-        for (auto const& file : machine_settings.value() ) {
-            // FileInfo file_info( file[ "mod_time" ], file[ "path" ], file[ "file_size" ] );
-            // prev_files_info_.emplace_back( file_info );
-        }
-    }
-}
-
