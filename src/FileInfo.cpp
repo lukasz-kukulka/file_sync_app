@@ -71,5 +71,5 @@ void FileInfo::replaceAllFileInfo(FileInfo const& new_info) {
     path_ = new_info.getPath();
     mod_time_ = new_info.getModTime();
     file_size_ = new_info.getFileSize();
-    setIsFileToReplace( false );
+    setIsFileToReplace( new_info.getIsFileToReplace() );
 }

@@ -8,7 +8,7 @@ Machine::Machine( fs::path const& path )
     : path_( path )
     , machine_name_( path.filename().string() )
 {
-    path_.filename();
+    //path_.filename();
     setExistingFileInfo();
 }
 
@@ -16,7 +16,7 @@ void Machine::setExistingFileInfo() {
     for (auto const& file : fs::recursive_directory_iterator{ path_ } ) {
         if ( file.is_regular_file() ) {
             auto const file_path = getPathToFile( file, path_);
-            exist_files_info_.emplace_back( file, file_path, path_.filename().string() );
+            exist_files_info_.insert( { file_path, FileInfo( file, file_path, path_.filename().string() ) } );
         }
     }
 }
@@ -45,7 +45,11 @@ std::string Machine::getMachineName() const {
     return machine_name_;
 }
 
-std::vector< FileInfo >& Machine::getFileInfo() {
+void Machine::addNewFileInfo(FileInfo const& file_info) {
+    exist_files_info_.insert( { file_info.getPath(), file_info } );
+}
+
+std::map< std::string, FileInfo >& Machine::getFileInfo() {
     return exist_files_info_;
 }
 

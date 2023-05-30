@@ -4,6 +4,7 @@
 #include "nlohmann/json.hpp"
 #include <chrono>
 #include <filesystem>
+#include <map>
 #include <string>
 #include <vector>
 
@@ -16,14 +17,15 @@ public:
     //std::vector< std::unique_ptr< fs::directory_entry > > getAllMachineFiles();
     void loadPreviouslyFilesInfo( json const& json, std::string const& machine_name );
     void saveMachineFilesInfo( json const& json, fs::directory_entry dir_entry );
-    std::vector< FileInfo >& getFileInfo();
+    std::map< std::string, FileInfo >& getFileInfo();
     std::string getMachineName() const;
+    void addNewFileInfo( FileInfo const& file_info );
 private:
     void setExistingFileInfo();
     std::string getPathToFile( fs::directory_entry const& file, fs::path const& path );
-    std::vector< FileInfo > exist_files_info_;
-    std::vector< FileInfo > prev_files_info_;
-    std::vector< FileInfo > new_files_info_;
+    std::map< std::string, FileInfo > exist_files_info_;
+    std::map< std::string, FileInfo > prev_files_info_;
+    std::map< std::string, FileInfo > new_files_info_;
     std::vector< std::unique_ptr< fs::directory_entry > > files_pointers_{};
     fs::path path_{};
     std::string machine_name_{};

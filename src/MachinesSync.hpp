@@ -15,7 +15,7 @@ using json = nlohmann::json;
 
 class MachinesSync : public Command {
 public:
-    MachinesSync( std::string const& main_path_ );
+    MachinesSync( std::string const& main_path );
     ~MachinesSync() = default;
     void operator()(std::vector< FileInfo >const& file_info ) override;
     
@@ -31,7 +31,7 @@ private:
     void changeFilesIfIsOlder();
     void replaceSingleFile( FileInfo& old_file, FileInfo& new_file );
     void addNewFilesIfDontExist( std::set< std::string >const& existing_file_paths, std::string const& path_to_copy );
-    
+    // void addNewFileInfoIfFileDontExist();
 
     std::string main_path_{};
     std::string machines_path_{};
