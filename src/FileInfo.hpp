@@ -27,4 +27,5 @@ private:
     std::time_t mod_time_{};
     uint64_t file_size_{};
     bool is_file_to_replace_{ true };
+    FileInfo* ptr_to_file_info_in_machine_{};
 };
