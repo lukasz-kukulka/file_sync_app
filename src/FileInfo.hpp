@@ -18,6 +18,8 @@ public:
     void setIsFileToReplace( bool is_to_replace );
     bool getIsFileToReplace() const;
     void replaceAllFileInfo( FileInfo const& new_info );
+    // void setPtrForMachineFileInfo( FileInfo* ptr );
+    // FileInfo* getPtrForMachineFileInfo() const;
 
 private:
     void setFileTime( fs::directory_entry file );
@@ -27,5 +29,5 @@ private:
     std::time_t mod_time_{};
     uint64_t file_size_{};
     bool is_file_to_replace_{ true };
-    FileInfo* ptr_to_file_info_in_machine_{};
+    //FileInfo* ptr_to_file_info_in_machine_{};
 };

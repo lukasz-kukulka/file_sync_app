@@ -31,12 +31,12 @@ private:
     void changeFilesIfIsOlder();
     void replaceSingleFile( FileInfo& old_file, FileInfo& new_file );
     void addNewFilesIfDontExist( std::set< std::string >const& existing_file_paths, std::string const& path_to_copy );
-    // void addNewFileInfoIfFileDontExist();
+    void findAndChangeVariableFileIsToChange( std::string const& machine_name, std::string const& file_patch, bool is_to_change );
 
     std::string main_path_{};
     std::string machines_path_{};
     std::vector< std::unique_ptr< Machine > > machines_;
     fs::path machine_setting_path_{};
     std::unique_ptr< Synchronizer > synchronizer_{};
-    std::map< std::string, FileInfo > unique_machine_files_info_{};
+    std::map< FileInfo, std::vector< std::string > > unique_machine_files_info_{};
 };

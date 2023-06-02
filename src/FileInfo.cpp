@@ -12,6 +12,7 @@ FileInfo::FileInfo( fs::directory_entry const& file, std::string const& path, st
     machine_name_ = machine_name;
     file_size_ = file.file_size();
     setFileTime( file );
+    //setPtrForMachineFileInfo( this );
     //std::cout << "AP: " << absolute_path_ << ", P: " << path_ << ", MN: " << machine_name << ", FS: " << file_size_ << ", FT: " << mod_time_ << std::endl;
 }
 
@@ -74,10 +75,10 @@ void FileInfo::replaceAllFileInfo(FileInfo const& new_info) {
     setIsFileToReplace( new_info.getIsFileToReplace() );
 }
 
-void FileInfo::setPtrForMachineFileInfo(FileInfo* ptr) {
-    ptr_to_file_info_in_machine_ = ptr;
-}
+// void FileInfo::setPtrForMachineFileInfo(FileInfo* ptr) {
+//     ptr_to_file_info_in_machine_ = ptr;
+// }
 
-FileInfo* FileInfo::getPtrForMachineFileInfo() const {
-    return ptr_to_file_info_in_machine_;
-}
+// FileInfo* FileInfo::getPtrForMachineFileInfo() const {
+//     return ptr_to_file_info_in_machine_;
+// }
