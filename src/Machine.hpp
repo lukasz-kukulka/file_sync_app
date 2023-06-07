@@ -20,6 +20,8 @@ public:
     std::map< std::string, FileInfo >& getFileInfo();
     std::string getMachineName() const;
     void addNewFileInfo( FileInfo const& file_info );
+    std::string getMachinePatch() const;
+
 private:
     void setExistingFileInfo();
     std::string getPathToFile( fs::directory_entry const& file, fs::path const& path );

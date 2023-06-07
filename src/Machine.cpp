@@ -49,6 +49,10 @@ void Machine::addNewFileInfo(FileInfo const& file_info) {
     exist_files_info_.insert( { file_info.getPath(), file_info } );
 }
 
+std::string Machine::getMachinePatch() const {
+    return path_.string();
+}
+
 std::map< std::string, FileInfo >& Machine::getFileInfo() {
     return exist_files_info_;
 }
