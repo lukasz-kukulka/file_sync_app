@@ -57,15 +57,6 @@ void MachinesSync::makeUniqueSyncFiles() {
             compareAndAddFileInfo( file.second, machine.get() );
         }
     }
-    for ( auto & machine : machines_ ) {
-        for ( auto & file : machine->getFileInfo() ) {
-            std::cout << "PATH = " << file.second.getAbsolutePath() << "   |    " << std::boolalpha << file.second.getIsFileToReplace() << std::endl;
-        }
-        std::cout << std::endl;
-    }
-    // for ( auto const & fil : unique_machine_files_info_ ) {
-    //     std::cout << fil.second.getAbsolutePath() << std::endl;
-    // }
 }
 
 void MachinesSync::compareAndAddFileInfo( FileInfo& file, Machine* machine ) {
@@ -79,7 +70,6 @@ void MachinesSync::compareAndAddFileInfo( FileInfo& file, Machine* machine ) {
         }
     } else {
         unique_machine_files_info_.insert( { file.getPath(), file } );
-        
     }
 }
 
@@ -95,12 +85,6 @@ void MachinesSync::changeFilesIfIsOlder() {
             }
         }
     }
-    // for ( auto & machine : machines_ ) {
-    //     for ( auto const & info : unique_machine_files_info_ ) { 
-    //         auto const exist_file = machine->getFileInfo().find( info.first );
-    //     }
-    //     std::cout << std::endl; 
-    // }
 }
 
 void MachinesSync::replaceSingleFile(FileInfo const& old_file, FileInfo const& new_file) {
@@ -110,13 +94,11 @@ void MachinesSync::replaceSingleFile(FileInfo const& old_file, FileInfo const& n
     std::filesystem::copy_file( old_file_path, new_file_path, std::filesystem::copy_options::overwrite_existing );
 }
 
-void MachinesSync::addNewFilesIfDontExist( std::string const& existing_file_paths, std::string const& path_to_copy ) {
-    //for( auto const& path : existing_file_paths ) {
-        std::filesystem::path existing_file( existing_file_paths );
-        std::filesystem::path new_path( path_to_copy );
-        std::cout << existing_file << " <--- old y|y new ---> " << new_path << std::endl;
-        std::filesystem::copy_file( path_to_copy, existing_file );
-    //}
+void MachinesSync::addNewFilesIfDontExist( std::string const& existing_file_path, std::string const& path_to_copy ) {
+    std::filesystem::path existing_file( existing_file_path );
+    std::filesystem::path new_path( path_to_copy );
+    fs::create_directories( new_path.parent_path() );
+    std::filesystem::copy_file( existing_file, new_path );
 }
 
 void MachinesSync::findAndChangeVariableFileIsToChange(std::string const& machine_name, std::string const& file_patch, bool is_to_change ) {
@@ -128,6 +110,5 @@ void MachinesSync::findAndChangeVariableFileIsToChange(std::string const& machin
                 }
             }
         }
-        
     }
 }

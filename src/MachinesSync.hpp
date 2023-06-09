@@ -30,7 +30,7 @@ private:
     void compareAndAddFileInfo( FileInfo& file_info, Machine* machine );
     void changeFilesIfIsOlder();
     void replaceSingleFile( FileInfo const& old_file, FileInfo const& new_file );
-    void addNewFilesIfDontExist( std::string const& existing_file_paths, std::string const& path_to_copy );
+    void addNewFilesIfDontExist( std::string const& existing_file_path, std::string const& path_to_copy );
     void findAndChangeVariableFileIsToChange( std::string const& machine_name, std::string const& file_patch, bool is_to_change );
 
     std::string main_path_{};
